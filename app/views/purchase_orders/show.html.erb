@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @purchase_order.date %>
+</p>
+
+<p>
+  <strong>Purchase order number:</strong>
+  <%= @purchase_order.purchase_order_number %>
+</p>
+<p>
+  <strong>Items:</strong>
+  <% @purchase_order.items.each do |item| %>
+  	<%= item.name_and_number %>
+  <% end %>
+</p>
+<p>
+  <strong>Cost:</strong>
+  <%= @purchase_order.cost %>
+</p>
+
+<%= link_to 'Edit', edit_purchase_order_path(@purchase_order) %> |
+<%= link_to 'Back', purchase_orders_path %>

@@ -1,4 +1,10 @@
 Inventory2::Application.routes.draw do
+  resources :quantities
+
+  resources :items
+
+  resources :purchase_orders
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

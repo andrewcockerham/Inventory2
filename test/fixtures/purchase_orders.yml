@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 
+  purchase_order_number: 1
+  cost: 9.99
+
+two:
+  date: 
+  purchase_order_number: 1
+  cost: 9.99

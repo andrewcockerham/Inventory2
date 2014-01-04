@@ -1,0 +1,4 @@
+
+<%= f.association :item, :collection => Item.all, :prompt => 'Choose an existing Item' %>
+<%= f.input :amount, :hint => 'hint' %>
+<%= link_to_remove_association "remove", f %>

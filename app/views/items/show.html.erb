@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Part number:</strong>
+  <%= @item.part_number %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item.name %>
+</p>
+
+<p>
+  <strong>On order qty:</strong>
+  <%= @item.on_order_qty %>
+</p>
+
+<p>
+  <strong>In inspection qty:</strong>
+  <%= @item.in_inspection_qty %>
+</p>
+
+<p>
+  <strong>Stock qty:</strong>
+  <%= @item.stock_qty %>
+</p>
+
+<p>
+  <strong>Ncmr qty:</strong>
+  <%= @item.ncmr_qty %>
+</p>
+
+<p>
+  <strong>Name and number:</strong>
+  <%= @item.name_and_number %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>

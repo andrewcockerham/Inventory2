@@ -1,0 +1,68 @@
+<%= simple_form_for @purchase_order do |f| %>
+  <% if @purchase_order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@purchase_order.errors.count, "error") %> prohibited this purchase_order from being saved:</h2>
+
+      <ul>
+      <% @purchase_order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.text_field :date %>
+  </div>
+  <div class="field">
+    <%= f.label :purchase_order_number %><br>
+    <%= f.number_field :purchase_order_number %>
+  </div>
+  <div class="field">
+     <% Item.all.each do |item| %>
+      <%= check_box_tag "purchase_order[item_ids][]", item.id %>
+      <%= item.name %>
+      <%= f.fields_for :quantities do |quantity| %>
+        <% quantity.text_field :item_id %> , <!-- value: item.id -->
+        <%= quantity.label :amount %>
+        <%= quantity.text_field :amount %><br>
+      <% end %>
+    <% end %>
+<!--     <b>< f.label :item_ids, "Item(s)" %></b><br>
+    < f.collection_select :item_ids, Item.order(:part_number), :id, :name_and_number, {}, {multiple: true} %><br> -->
+  </div>
+  <h3>quantity</h3>
+  <!-- from SO question  -->
+<!--   < f.fields_for :quantities do |quantity| %>
+    < quantity.hidden_field :amount %>
+    < quantity.fields_for :item do |item| %>
+      < item.label :name, "Author" %>
+      < item.text_field :name %>
+    < end %>
+  <end %> -->
+    <!-- USE THIS ONE -->
+<!--   < f.fields_for :quantities do |quantity| %> Quantity.new
+    < quantity.label :amount %>
+    < quantity.text_field :amount %><br>
+    < quantity.fields_for :items do |item| %>
+      < item.label :name %>
+      < item.text_field :name %>
+    < end %> 
+  < end %> -->
+
+
+
+
+  <h2> cocoon</h2>
+  <!-- < f.simple_fields_for :quantities do |quantity| %> -->
+    <!-- < render 'quantity_fields', :f => quantity %> -->
+  <!-- < end %> -->
+  <div class="field">
+    <%= f.label :cost %><br>
+    <%= f.text_field :cost %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
