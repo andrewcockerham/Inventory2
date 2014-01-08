@@ -15,6 +15,7 @@ class ItemsController < ApplicationController
   # GET /items/new
   def new
     @item = Item.new
+    @item.parts.build #### DONT FORGET THIS!!! BLOG/TUTORIAL ABOUT IT!!!
   end
 
   # GET /items/1/edit
@@ -25,7 +26,10 @@ class ItemsController < ApplicationController
   # POST /items.json
   def create
     @item = Item.new(item_params)
-
+    # Item.create_name_and_number
+    @number = @item.part_number
+    @name = @item.name
+    @item.name_and_number = @number + " " + @name
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
@@ -69,6 +73,8 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:part_number, :name, :on_order_qty, :in_inspection_qty, :stock_qty, :ncmr_qty, :name_and_number)
+      params.require(:item).permit(:part_number, :name, :on_order_qty, 
+                                   :in_inspection_qty, :stock_qty, :ncmr_qty,
+                                   :name_and_number, :parts_attributes => [:id, :supplier_id, :_destroy])
     end
 end

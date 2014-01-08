@@ -1,4 +1,12 @@
 Inventory2::Application.routes.draw do
+  resources :lots
+
+  resources :parts
+
+  resources :orders
+
+  resources :suppliers
+
   resources :quantities
 
   resources :items

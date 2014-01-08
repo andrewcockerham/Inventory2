@@ -10,14 +10,29 @@
   <%= @purchase_order.purchase_order_number %>
 </p>
 <p>
-  <strong>Items:</strong>
+  <strong>Items:</strong><br>
   <% @purchase_order.items.each do |item| %>
-  	<%= item.name_and_number %>
+  	<%= item.name_and_number %><br>
+    <!-- < item.supplier %><br> -->
+    <em>Amount</em>
+    <% @q.each do |q| %>
+      <% if q.item_id == item.id %>
+        <%= q.amount %><br>
+      <% end %>
+    <% end %>
+  <% end %>
+</p>
+<p>
+  <strong>Supplier:</strong>
+  <% @purchase_order.items.each do |item| %>
+    <% item.suppliers.each do |supplier| %>
+      <%= supplier.name %>
+    <% end %>
   <% end %>
 </p>
 <p>
   <strong>Cost:</strong>
-  <%= @purchase_order.cost %>
+  <%= number_to_currency(@purchase_order.cost) %>
 </p>
 
 <%= link_to 'Edit', edit_purchase_order_path(@purchase_order) %> |

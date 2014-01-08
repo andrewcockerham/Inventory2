@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @lot.number %>
+</p>
+
+<p>
+  <strong>Initial qty:</strong>
+  <%= @lot.initial_qty %>
+</p>
+
+<p>
+  <strong>Current qty:</strong>
+  <%= @lot.current_qty %>
+</p>
+
+<p>
+  <strong>Item:</strong>
+  <%= Item.find(@lot.item_id).name %>
+</p>
+
+<p>
+  <strong>Cleaned:</strong>
+  <%= @lot.cleaned %>
+</p>
+
+<%= link_to 'Edit', edit_lot_path(@lot) %> |
+<%= link_to 'Back', lots_path %>

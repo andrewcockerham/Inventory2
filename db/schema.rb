@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140104164734) do
+ActiveRecord::Schema.define(version: 20140108125801) do
 
   create_table "items", force: true do |t|
     t.string   "part_number"
@@ -25,9 +25,37 @@ ActiveRecord::Schema.define(version: 20140104164734) do
     t.datetime "updated_at"
   end
 
+  create_table "lots", force: true do |t|
+    t.integer  "number"
+    t.integer  "initial_qty"
+    t.integer  "current_qty"
+    t.integer  "item_id"
+    t.boolean  "cleaned"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "status"
+  end
+
+  create_table "orders", force: true do |t|
+    t.integer  "purchase_order_id"
+    t.integer  "supplier_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "parts", force: true do |t|
+    t.integer  "item_id"
+    t.integer  "supplier_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "parts", ["item_id"], name: "index_parts_on_item_id"
+  add_index "parts", ["supplier_id"], name: "index_parts_on_supplier_id"
+
   create_table "purchase_orders", force: true do |t|
     t.date     "date"
-    t.integer  "purchase_order_number"
+    t.string   "purchase_order_number"
     t.decimal  "cost"
     t.string   "description"
     t.datetime "created_at"
@@ -38,6 +66,12 @@ ActiveRecord::Schema.define(version: 20140104164734) do
     t.integer  "purchase_order_id"
     t.integer  "item_id"
     t.integer  "amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "suppliers", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

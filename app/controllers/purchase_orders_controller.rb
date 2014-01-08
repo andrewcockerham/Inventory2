@@ -10,12 +10,28 @@ class PurchaseOrdersController < ApplicationController
   # GET /purchase_orders/1
   # GET /purchase_orders/1.json
   def show
+    @q = Quantity.all.find_all_by_purchase_order_id(@purchase_order.id)
   end
 
   # GET /purchase_orders/new
   def new
     @purchase_order = PurchaseOrder.new
+    @todays_date = Date.today.to_s.delete("-")
+    if PurchaseOrder.first
+      @last_date = PurchaseOrder.last.purchase_order_number.split("-")[0]
+      @last_number = PurchaseOrder.last.purchase_order_number.split("-")[1]
+    end
+    if @last_date == @todays_date
+      @next_po_number = @todays_date + "-" + "0" + (@last_number.to_i + 1).to_s
+    else
+      @next_po_number = @todays_date + "-01"
+    end
+    @purchase_order.purchase_order_number = @next_po_number
     @purchase_order.quantities.build
+
+    # create list of items for quantites partial
+    @item_list = Item.all.order(:part_number)
+    # @item_list = Item.where('student_advisor' => true) 
   end
 
   # GET /purchase_orders/1/edit
@@ -74,7 +90,9 @@ class PurchaseOrdersController < ApplicationController
                                              :items => [:id, :item_id],
                                              :item_ids => [:id, :item_id], :quantity => [],
                                              :item_attributes => [:id, :item_id], 
-                                             :quantities_attributes => [:amount, :id, :item_id],
-                                             :quantity_ids => [])
+                                             :quantities_attributes => [:amount, :id, :item_id, :_destroy],
+                                             :quantity_ids => [],
+                                             :suppliers => [:id, :supplier_id],
+                                             :supplier_ids => []) # this one worked!!!
     end                                     # :item_id,
 end

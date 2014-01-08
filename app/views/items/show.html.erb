@@ -9,7 +9,11 @@
   <strong>Name:</strong>
   <%= @item.name %>
 </p>
-
+  <strong>Supplier:</strong>
+  <% @item.suppliers.each do |supplier| %>
+    <%= supplier.name %>
+  <% end %>
+  <!-- < @item.suppliers[0].name %> -->
 <p>
   <strong>On order qty:</strong>
   <%= @item.on_order_qty %>

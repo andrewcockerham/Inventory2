@@ -1,0 +1,24 @@
+<%= simple_form_for(@lot) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :number %>
+    <%= f.input :initial_qty %>
+    <%= f.input :current_qty %>
+    <%= f.label :item_id, "Item" %><br>
+    <%= f.collection_select :item_id, Item.order(:name), :id, :name, {} %><br>
+    <!-- < f.fields_for :items do |item| %> -->
+      <!-- < render 'item_fields', :f => item %> -->
+     <!-- end %>  -->
+    <!-- < f.input :item_id %> -->
+    <%= f.input :cleaned %>
+    <%= f.label :status %>
+    <!-- < f.collection_select :status, @status_list,  %> -->
+    <%= select_tag "status", options_for_select(@status_list) %>
+    <!-- < f.association :item, :collection => @item_list, :label_method => :name_and_number, :value_method => :id, :prompt => 'Choose an existing Item' %> -->
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
