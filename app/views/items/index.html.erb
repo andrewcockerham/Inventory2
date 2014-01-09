@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Part number</th>
+      <th>Revision</th>
       <th>Name</th>
       <th>On order qty</th>
       <th>In inspection qty</th>
@@ -20,6 +21,7 @@
     <% @items.each do |item| %>
       <tr>
         <td><%= item.part_number %></td>
+        <td><%= item.revision %></td>
         <td><%= item.name %></td>
         <td><%= item.on_order_qty %></td>
         <td><%= item.in_inspection_qty %></td>

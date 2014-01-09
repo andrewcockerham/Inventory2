@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140108125801) do
+ActiveRecord::Schema.define(version: 20140109040205) do
 
   create_table "items", force: true do |t|
     t.string   "part_number"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20140108125801) do
     t.string   "name_and_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "revision"
   end
 
   create_table "lots", force: true do |t|
