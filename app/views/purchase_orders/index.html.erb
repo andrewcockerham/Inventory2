@@ -6,9 +6,9 @@
       <!-- <th>Date</th> -->
       <th>PO Number</th>
       <th>Items</th>
+      <th>Supplier</th>
       <th>Description</th>
       <th>Cost</th>
-      <th></th>
     </tr>
   </thead>
 
@@ -20,6 +20,8 @@
         <td><% purchase_order.items.each do |item| %>
           <%= link_to item.name_and_number, item %>
         <% end %></td>
+        <td>
+          <%= link_to purchase_order.items[0].suppliers[0].name, supplier_path(:id => purchase_order.items[0].suppliers[0].id) %></td>  <!-- if purchase_order.items[0]  (:id => purchase_order.items[0].suppliers[0].id)-->
         <td><%= purchase_order.description %></td>
         <td><%= number_to_currency(purchase_order.cost) %></td>
         <td><%= link_to 'Show', purchase_order %></td>

@@ -86,7 +86,7 @@ class PurchaseOrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_order_params
-      params.require(:purchase_order).permit(:date, :purchase_order_number, :cost, 
+      params.require(:purchase_order).permit(:date, :purchase_order_number, :cost, :description, 
                                              :items => [:id, :item_id],
                                              :item_ids => [:id, :item_id], :quantity => [],
                                              :item_attributes => [:id, :item_id], 
