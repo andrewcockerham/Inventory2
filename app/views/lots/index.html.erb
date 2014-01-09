@@ -8,6 +8,7 @@
       <th>Current qty</th>
       <th>Item</th>
       <th>Cleaned</th>
+      <th>Status</th>
       <th></th>
       <th></th>
       <th></th>
@@ -20,8 +21,9 @@
         <td><%= lot.number %></td>
         <td><%= lot.initial_qty %></td>
         <td><%= lot.current_qty %></td>
-        <td><%= lot.item_id %></td>
+        <td><%= Item.find(lot.item_id).name %></td>
         <td><%= lot.cleaned %></td>
+        <td><%= lot.status %></td>
         <td><%= link_to 'Show', lot %></td>
         <td><%= link_to 'Edit', edit_lot_path(lot) %></td>
         <td><%= link_to 'Destroy', lot, method: :delete, data: { confirm: 'Are you sure?' } %></td>

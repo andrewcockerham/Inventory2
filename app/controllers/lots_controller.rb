@@ -21,6 +21,7 @@ class LotsController < ApplicationController
 
   # GET /lots/1/edit
   def edit
+    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Used', 4]]
   end
 
   # POST /lots
@@ -71,6 +72,6 @@ class LotsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lot_params
-      params.require(:lot).permit(:number, :initial_qty, :current_qty, :item_id, :cleaned)
+      params.require(:lot).permit(:number, :initial_qty, :current_qty, :item_id, :cleaned, :status)
     end
 end

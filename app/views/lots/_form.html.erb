@@ -12,9 +12,10 @@
      <!-- end %>  -->
     <!-- < f.input :item_id %> -->
     <%= f.input :cleaned %>
-    <%= f.label :status %>
     <!-- < f.collection_select :status, @status_list,  %> -->
-    <%= select_tag "status", options_for_select(@status_list) %>
+    <!-- < select_tag "status", options_for_select(@status_list) %> -->
+        <b><%= f.label :status, "Status" %></b><br>
+        <%= f.select :status, @status_list.map { |value| [ value, value] } %><br>
     <!-- < f.association :item, :collection => @item_list, :label_method => :name_and_number, :value_method => :id, :prompt => 'Choose an existing Item' %> -->
   </div>
 
