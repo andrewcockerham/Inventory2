@@ -1,5 +1,5 @@
  
-<%= f.association :item, :collection_select => Item.all.order(:part_number),  :prompt => 'Choose an existing Item' %> <!-- :name_and_number -->
+<%= f.association :item, :collection_select => Item.all.order(:number_rev_name), label_method: :number_rev_name, value_method: :id, :prompt => 'Choose an existing Item' %> <!-- :name_and_number -->
 <!-- < f.association :item, :collection => @item_list, :label_method => :name_and_number, :value_method => :id, :prompt => 'Choose an existing Item' %> -->
 <%= f.input :amount, label: 'Order Quantity' %>
 <%= link_to_remove_association "remove", f %>

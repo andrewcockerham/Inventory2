@@ -20,6 +20,12 @@ class ItemsController < ApplicationController
 
   # GET /items/1/edit
   def edit
+    # # Item.create_name_and_number
+    # @item.name_and_number = @item.part_number + " " + @item.name
+    # # Item.create_name_and_rev
+    # @item.number_and_rev = @item.part_number + " Rev " + @item.revision
+    # # Item.create_number_rev_name
+    # @item.number_rev_name = @item.number_and_rev + " " + @item.name
   end
 
   # POST /items
@@ -27,9 +33,11 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     # Item.create_name_and_number
-    @number = @item.part_number
-    @name = @item.name
-    @item.name_and_number = @number + " " + @name
+    @item.name_and_number = @item.part_number + " " + @item.name
+    # Item.create_name_and_rev
+    @item.number_and_rev = @item.part_number + " Rev " + @item.revision
+    # Item.create_number_rev_name
+    @item.number_rev_name = @item.number_and_rev + " " + @item.name
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
@@ -44,6 +52,14 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
+    ### pull info from params hash to fix bug!!!
+    # Item.create_name_and_number
+    @item.name_and_number = item_params[:part_number] + " " + item_params[:name]
+    # @item.name_and_number = @item.part_number + " " + @item.name
+    # Item.create_name_and_rev
+    @item.number_and_rev = item_params[:part_number] + " Rev " + item_params[:revision]
+    # Item.create_number_rev_name
+    @item.number_rev_name = @item.number_and_rev + " " + item_params[:name]
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }

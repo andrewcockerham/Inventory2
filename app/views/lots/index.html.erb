@@ -1,12 +1,12 @@
-<h1>Listing lots</h1>
+<h1>Lot Number Log</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Number</th>
-      <th>Initial qty</th>
-      <th>Current qty</th>
+      <th>Lot Number</th>
       <th>Item</th>
+      <th>Initial Quantity</th>
+      <th>Current Quantity</th>
       <th>Cleaned</th>
       <th>Status</th>
       <th></th>
@@ -18,10 +18,10 @@
   <tbody>
     <% @lots.each do |lot| %>
       <tr>
-        <td><%= lot.number %></td>
+        <td><%= link_to lot.number, lot_path(lot.id) %></td>
+        <td><%= link_to Item.find(lot.item_id).name_and_number, item_path(Item.find(lot.item_id).id) %></td>
         <td><%= lot.initial_qty %></td>
         <td><%= lot.current_qty %></td>
-        <td><%= Item.find(lot.item_id).name %></td>
         <td><%= lot.cleaned %></td>
         <td><%= lot.status %></td>
         <td><%= link_to 'Show', lot %></td>

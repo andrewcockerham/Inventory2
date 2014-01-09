@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
 
 	# Validations
-	validates_uniqueness_of :part_number
+	# validates_uniqueness_of :number_and_rev # :part_number
 	validates_presence_of :name, :part_number
 
 	# Associations

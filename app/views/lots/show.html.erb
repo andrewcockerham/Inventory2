@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Number:</strong>
+  <strong>Lot Number:</strong>
   <%= @lot.number %>
 </p>
 
@@ -17,7 +17,7 @@
 
 <p>
   <strong>Item:</strong>
-  <%= Item.find(@lot.item_id).name %>
+  <%= Item.find(@lot.item_id).name_and_number %>
 </p>
 
 <p>

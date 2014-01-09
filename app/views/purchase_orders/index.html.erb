@@ -6,6 +6,7 @@
       <!-- <th>Date</th> -->
       <th>PO Number</th>
       <th>Items</th>
+      <!-- <th>Revision</th> -->
       <th>Supplier</th>
       <th>Description</th>
       <th>Cost</th>
@@ -18,8 +19,10 @@
         <!-- <td>< purchase_order.date %></td> -->
         <td><%= link_to purchase_order.purchase_order_number, purchase_order %></td>
         <td><% purchase_order.items.each do |item| %>
-          <%= link_to item.name_and_number, item %>
+          <%= link_to item.name_and_number, item %> Rev 
+          <%= item.revision %>
         <% end %></td>
+        <!-- <td></td> -->
         <td>
           <%= link_to purchase_order.items[0].suppliers[0].name, supplier_path(:id => purchase_order.items[0].suppliers[0].id) %></td>  <!-- if purchase_order.items[0]  (:id => purchase_order.items[0].suppliers[0].id)-->
         <td><%= purchase_order.description %></td>
