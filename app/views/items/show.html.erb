@@ -7,6 +7,15 @@
   <strong>Revision:</strong>
   <%= @item.revision %>
 <p>
+ <p>
+  <strong>Current Rev?</strong>
+  <% if @item.current_rev %>
+    <%= "Yes" %>
+    <% else %>
+    <%= "No" %>
+    <!-- < false %> -->
+  <% end %>
+ </p>
   <strong>Name:</strong>
   <%= @item.name %>
 </p>
