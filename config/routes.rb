@@ -1,4 +1,10 @@
 Inventory2::Application.routes.draw do
+
+
+  root "purchase_orders#index"
+
+  resources :employees
+
   resources :lots
 
   resources :parts

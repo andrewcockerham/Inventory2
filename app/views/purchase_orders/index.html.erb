@@ -20,15 +20,14 @@
         <td><%= link_to purchase_order.purchase_order_number, purchase_order %></td>
         <td><% purchase_order.items.each do |item| %>
           <%= link_to item.name_and_number, item %> Rev 
-          <%= item.revision %>
+          <%= item.revision %><br>
         <% end %></td>
         <!-- <td></td> -->
         <td>
           <%= link_to purchase_order.items[0].suppliers[0].name, supplier_path(:id => purchase_order.items[0].suppliers[0].id) %></td>  <!-- if purchase_order.items[0]  (:id => purchase_order.items[0].suppliers[0].id)-->
         <td><%= purchase_order.description %></td>
         <td><%= number_to_currency(purchase_order.cost) %></td>
-        <td><%= link_to 'Show', purchase_order %></td>
-        <td><%= link_to 'Edit', edit_purchase_order_path(purchase_order) %></td>
+<!--         <td>< link_to 'Edit', edit_purchase_order_path(purchase_order) %></td> -->
         <td><%= link_to 'Destroy', purchase_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -37,4 +36,4 @@
 
 <br>
 
-<%= link_to 'New Purchase order', new_purchase_order_path %>
+<%= link_to 'New Purchase order', new_purchase_order_path, class: 'btn btn-primary' %>

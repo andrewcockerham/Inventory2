@@ -1,4 +1,5 @@
-<%= f.association :supplier, :collection_select => Supplier.all.order(:name),  :prompt => 'Choose an existing Item', required: false %> <!-- :name_and_number -->
-<!-- < f.association :item, :collection => @item_list, :label_method => :name_and_number, :value_method => :id, :prompt => 'Choose an existing Item' %> -->
-<!-- < f.input :amount, label: 'Order Quantity' %> -->
-<%= link_to_remove_association "remove", f %>
+<div class='nested-fields'>
+	<%= f.association :supplier, :collection_select => Supplier.all.order(:name),  :prompt => 'Choose an existing Supplier', required: false %> <!-- :name_and_number -->
+
+	<%= link_to_remove_association "remove", f %>
+</div>

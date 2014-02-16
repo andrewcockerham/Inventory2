@@ -5,5 +5,12 @@
   <%= @supplier.name %>
 </p>
 
+<strong>Items:</strong>
+<% if @supplier.items.length > 0 %>
+	<% @supplier.items.each do |item| %>
+		<%= item.name_and_number %>
+	<% end %>
+<% end %>
+
 <%= link_to 'Edit', edit_supplier_path(@supplier) %> |
 <%= link_to 'Back', suppliers_path %>

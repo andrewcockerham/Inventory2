@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140109172826) do
+ActiveRecord::Schema.define(version: 20140216135112) do
+
+  create_table "employees", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "employees", ["email"], name: "index_employees_on_email"
+  add_index "employees", ["first_name"], name: "index_employees_on_first_name"
+  add_index "employees", ["last_name"], name: "index_employees_on_last_name"
 
   create_table "items", force: true do |t|
     t.string   "part_number"
@@ -78,6 +90,8 @@ ActiveRecord::Schema.define(version: 20140109172826) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "approved"
+    t.boolean  "critical"
   end
 
 end

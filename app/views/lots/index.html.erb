@@ -7,11 +7,8 @@
       <th>Item</th>
       <th>Initial Quantity</th>
       <th>Current Quantity</th>
-      <th>Cleaned</th>
+      <th>Cleaned?</th>
       <th>Status</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -24,7 +21,7 @@
         <td><%= lot.current_qty %></td>
         <td><%= lot.cleaned %></td>
         <td><%= lot.status %></td>
-        <td><%= link_to 'Show', lot %></td>
+        <!-- <td>< link_to 'Show', lot %></td> -->
         <td><%= link_to 'Edit', edit_lot_path(lot) %></td>
         <td><%= link_to 'Destroy', lot, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

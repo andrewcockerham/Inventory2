@@ -1,51 +1,55 @@
-<%= simple_form_for(@item) do |f| %>
-  <% if @item.errors.any? %>
+<div class="well">
+<%= simple_form_for(@item, html: {class: 'form-horizontal' }) do |f| %>
+<%= f.error_notification %>
+
+<!--   < if @item.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+      <h2>< pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
 
       <ul>
-      <% @item.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+      < @item.errors.full_messages.each do |msg| %>
+        <li>< msg %></li>
+      < end %>
       </ul>
     </div>
-  <% end %>
+  < end %> -->
 
   <div class="field">
-    <%= f.label :part_number, required: false %><br>
-    <%= f.text_field :part_number, autofocus: true %>
-  </div>
+    <%= f.input :part_number %>
     <%= f.input :revision %>
     <%= f.input :current_rev %>  
-  <div class="field">
-    <%= f.label :name, required: false %><br>
-    <%= f.text_field :name %>
-  </div>
+    <%= f.input :name, required: false%><br>
+<!--   , :input_html => { :class => "span6" }, :hint => "add your article titel here"  -->
+    </div>
   <%= f.simple_fields_for :parts do |part| %>
     <%= render 'part_fields', :f => part %>
-    <!-- < supplier.label :name, "Supplier" %> -->
-    <!-- < supplier.text_field :name %> -->
   <% end %>
   <div class="links">
-    <%= link_to_add_association 'Add item', f, :parts %><br><br>
+    <%= link_to_add_association 'Add additional supplier', f, :parts %><br><br>
   </div>
   <div class="field">
-    <%= f.label :on_order_qty %><br>
-    <%= f.number_field :on_order_qty %>
+    <%= f.input :on_order_qty %>
+    <%= f.input :in_inspection_qty %>
+    <%= f.input :stock_qty %>
+    <%= f.input :ncmr_qty %>
   </div>
-  <div class="field">
-    <%= f.label :in_inspection_qty %><br>
-    <%= f.number_field :in_inspection_qty %>
-  </div>
-  <div class="field">
-    <%= f.label :stock_qty %><br>
-    <%= f.number_field :stock_qty %>
-  </div>
-  <div class="field">
-    <%= f.label :ncmr_qty %><br>
-    <%= f.number_field :ncmr_qty %>
-  </div>
-  <div class="actions">
+  <!-- </div> -->
+  <!-- <div class="field"> -->
+<!--     < f.label :in_inspection_qty %><br>
+    < f.number_field :in_inspection_qty %> -->
+  <!-- </div> -->
+  <!-- <div class="field"> -->
+<!--     < f.label :stock_qty %><br>
+    < f.number_field :stock_qty  -->
+  <!-- </div> -->
+  <!-- <div class="field"> -->
+<!--     < f.label :ncmr_qty %><br>
+    < f.number_field :ncmr_qty %> -->
+  <!-- </div> -->
+  <!-- <div class="actions"> -->
+  
+  <div class="form-actions">
     <%= f.submit %>
   </div>
 <% end %>
+</div>

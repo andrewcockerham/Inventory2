@@ -1,20 +1,22 @@
-<h1>Listing suppliers</h1>
+<h1>Suppliers</h1>
 
 <table>
   <thead>
     <tr>
       <th>Name</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Items</th>
+      <th>Approved?</th>
     </tr>
   </thead>
 
   <tbody>
     <% @suppliers.each do |supplier| %>
       <tr>
-        <td><%= supplier.name %></td>
-        <td><%= link_to 'Show', supplier %></td>
+        <td><%= link_to supplier.name, supplier %></td>
+        <td><% supplier.items.each do |item|%>
+            <%= link_to item.name_and_number, item %><br>
+          <% end %></td>
+        <td><%= supplier.approved %></td>
         <td><%= link_to 'Edit', edit_supplier_path(supplier) %></td>
         <td><%= link_to 'Destroy', supplier, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -24,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Supplier', new_supplier_path %>
+<%= link_to 'New Supplier', new_supplier_path, class: 'btn btn-lg' %>

@@ -1,9 +1,9 @@
- 
-<%= f.association :item, :collection_select => Item.all.order(:number_rev_name), label_method: :number_rev_name, value_method: :id, :prompt => 'Choose an existing Item' %> <!-- :name_and_number -->
-<!-- < f.association :item, :collection => @item_list, :label_method => :name_and_number, :value_method => :id, :prompt => 'Choose an existing Item' %> -->
-<%= f.input :amount, label: 'Order Quantity' %>
-<%= link_to_remove_association "remove", f %>
-
+<div class='nested-fields'> 
+	<%= f.association :item, :collection_select => Item.all.order(:number_rev_name), label_method: :number_rev_name, value_method: :id, :prompt => 'Choose an existing Item' %> <!-- :name_and_number -->
+	<!-- < f.association :item, :collection => @item_list, :label_method => :name_and_number, :value_method => :id, :prompt => 'Choose an existing Item' %> -->
+	<%= f.input :amount, label: 'Order Quantity' %>
+	<%= link_to_remove_association "remove", f %>
+</div>
 
 <!-- <b>< f.label :item_ids, "Item(s)" %></b><br>
 < f.collection_select :item_ids, Item.order(:part_number), :id, :name_and_number, {}, {multiple: true} %><br> -->

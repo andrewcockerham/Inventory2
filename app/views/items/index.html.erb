@@ -1,4 +1,4 @@
-<h1>Listing items</h1>
+<h1>Items</h1>
 
 <table>
   <thead>
@@ -11,9 +11,6 @@
       <th>Stock qty</th>
       <th>Ncmr qty</th>
       <!-- <th>Name and number</th> -->
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -28,8 +25,7 @@
         <td><%= item.stock_qty %></td>
         <td><%= item.ncmr_qty %></td>
         <!-- <td>< item.name_and_number %></td> -->
-        <td><%= link_to 'Show', item %></td>
-        <td><%= link_to 'Edit', edit_item_path(item) %></td>
+        <!-- <td>< link_to 'Edit', edit_item_path(item) %></td> -->
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -37,6 +33,6 @@
 </table>
 
 <br>
-<%= Item.where(current_rev: true).name %>
+<!-- < Item.where(current_rev: true).name %> -->
 
-<%= link_to 'New Item', new_item_path %>
+<%= link_to 'New Item', new_item_path, class: 'btn btn-primary mybutton' %>
