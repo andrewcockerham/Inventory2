@@ -2,13 +2,13 @@ body {
   background-color: #fff;
   color: #333;
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 18px;
   line-height: 18px;
 }
 
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 18px;
   line-height: 18px;
 }
 
@@ -69,12 +69,12 @@ div {
 }
 
 ///////////// CSS for table from web
-* { 
-  margin: 0; 
-  padding: 0; 
-}
+// * { 
+//   margin: 0; 
+//   padding: 0; 
+// }
 body { 
-  font: 14px/1.4 Georgia, Serif; 
+  font: 18px/1.4 Georgia, Serif; 
 }
 #page-wrap {
   margin: 50px;
@@ -111,4 +111,12 @@ p {
 ////////// my CSS
 .btn:visited {
   color: white;
+}
+
+.field {
+  margin: 10px
+}
+
+.well {
+  margin: 15px;
 }

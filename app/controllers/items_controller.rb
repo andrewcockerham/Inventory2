@@ -38,6 +38,7 @@ class ItemsController < ApplicationController
     @item.number_and_rev = @item.part_number + " Rev " + @item.revision
     # Item.create_number_rev_name
     @item.number_rev_name = @item.number_and_rev + " " + @item.name
+    @item.on_order_qty = 0
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }

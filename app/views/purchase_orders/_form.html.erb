@@ -1,54 +1,59 @@
-<%= simple_form_for @purchase_order do |f| %>
-  <% if @purchase_order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@purchase_order.errors.count, "error") %> prohibited this purchase_order from being saved:</h2>
+<div class='well col-md-8'>
+  <%= simple_form_for @purchase_order do |f| %>
+    <% if @purchase_order.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@purchase_order.errors.count, "error") %> prohibited this purchase_order from being saved:</h2>
 
-      <ul>
-      <% @purchase_order.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @purchase_order.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="row">
+    <div class="field col-lg-4">
+      <strong><%= f.label :date %></strong>
+      <%= f.date_select :date %>
+    </div>
+    <div class="field">
+      <strong>Purchase Order Number:</strong>
+      <!-- f.label :purchase_order_number %>: -->
+      <%= @purchase_order.purchase_order_number %>
+      <%= f.hidden_field :purchase_order_number, value: @purchase_order.purchase_order_number %>
+      <!-- < f.number_field :purchase_order_number %> -->
+    </div>
+  </div>
+  <!--      < Item.all.each do |item| %>
+        < check_box_tag "purchase_order[item_ids][]", item.id %>
+        < item.name %>
+        < f.fields_for :quantities do |quantity| %>
+          < quantity.text_field :item_id %> ,  value: item.id
+          < quantity.label :amount %>
+          < quantity.text_field :amount %><br>
+        < end %>
+      < end %> -->
+  <!--     <b>< f.label :item_ids, "Item(s)" %></b><br>
+      < f.collection_select :item_ids, Item.order(:part_number), :id, :name_and_number, {}, {multiple: true} %><br> -->
+    <%= f.simple_fields_for :quantities do |quantity| %>
+      <%= render 'quantity_fields', :f => quantity %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association 'Add item', f, :quantities, class: 'btn btn-primary' %><br><br>
+    </div>
+  <!--   < f.label :supplier_ids, "Supplier" %><br>
+    < f.collection_select :supplier_ids, Supplier.order(:name), :id, :name, {}, {multiple: true} %><br> -->
+  <!--   < f.fields_for :suppliers do |supplier| %>
+      < supplier.input :name %>hi
+    < end %> -->
+    <div class="field">
+      <!-- <strong>< f.label :cost, required: false %></strong><br> -->
+      <%= f.input :cost, required: false, as: :string %>
+      <%= f.input :estimated_arrival %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
     </div>
   <% end %>
-
-  <div class="field">
-    <strong><%= f.label :date %></strong>
-    <%= f.date_select :date %>
-  </div>
-  <div class="field">
-    <strong>Purchase Order Number:</strong>
-    <!-- f.label :purchase_order_number %>: -->
-    <%= @purchase_order.purchase_order_number %>
-    <%= f.hidden_field :purchase_order_number, value: @purchase_order.purchase_order_number %>
-    <!-- < f.number_field :purchase_order_number %> -->
-  </div>
-<!--      < Item.all.each do |item| %>
-      < check_box_tag "purchase_order[item_ids][]", item.id %>
-      < item.name %>
-      < f.fields_for :quantities do |quantity| %>
-        < quantity.text_field :item_id %> ,  value: item.id
-        < quantity.label :amount %>
-        < quantity.text_field :amount %><br>
-      < end %>
-    < end %> -->
-<!--     <b>< f.label :item_ids, "Item(s)" %></b><br>
-    < f.collection_select :item_ids, Item.order(:part_number), :id, :name_and_number, {}, {multiple: true} %><br> -->
-  <%= f.simple_fields_for :quantities do |quantity| %>
-    <%= render 'quantity_fields', :f => quantity %>
-  <% end %>
-  <div class="links">
-    <%= link_to_add_association 'Add item', f, :quantities %><br><br>
-  </div>
-<!--   < f.label :supplier_ids, "Supplier" %><br>
-  < f.collection_select :supplier_ids, Supplier.order(:name), :id, :name, {}, {multiple: true} %><br> -->
-<!--   < f.fields_for :suppliers do |supplier| %>
-    < supplier.input :name %>hi
-  < end %> -->
-  <div class="field">
-    <strong><%= f.label :cost, required: false %></strong><br>
-    <%= f.text_field :cost %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div><br>

@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
-
+<div class='well'>
+  <div class='row'>
 <p>
   <strong>Date:</strong>
   <%= @purchase_order.date %>
@@ -9,6 +10,7 @@
   <strong>Purchase order number:</strong>
   <%= @purchase_order.purchase_order_number %>
 </p>
+</div>
 <p>
   <strong>Items:</strong><br>
   <% @purchase_order.items.each do |item| %>
@@ -38,6 +40,10 @@
   <strong>Cost:</strong>
   <%= number_to_currency(@purchase_order.cost) %>
 </p>
-
+<p>
+  <strong>Estimated Arrival:</strong>
+  <%= @purchase_order.estimated_arrival %>
+</p>
+</div>
 <%= link_to 'Edit', edit_purchase_order_path(@purchase_order) %> |
 <%= link_to 'Back', purchase_orders_path %>

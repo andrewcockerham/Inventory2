@@ -45,6 +45,11 @@ class PurchaseOrdersController < ApplicationController
 
     respond_to do |format|
       if @purchase_order.save
+        @purchase_order.quantities.each do |quantity|
+          @item = Item.find(quantity.item_id)
+          @item.on_order_qty += quantity.amount
+          @item.save
+        end
         format.html { redirect_to @purchase_order, notice: 'Purchase order was successfully created.' }
         format.json { render action: 'show', status: :created, location: @purchase_order }
       else
@@ -86,7 +91,7 @@ class PurchaseOrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_order_params
-      params.require(:purchase_order).permit(:date, :purchase_order_number, :cost, :description, 
+      params.require(:purchase_order).permit(:date, :purchase_order_number, :cost, :description, :estimated_arrival,
                                              :items => [:id, :item_id],
                                              :item_ids => [:id, :item_id], :quantity => [],
                                              :item_attributes => [:id, :item_id], 

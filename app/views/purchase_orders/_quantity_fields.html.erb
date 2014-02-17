@@ -1,8 +1,12 @@
 <div class='nested-fields'> 
+	<div class='well'> <!-- border? -->
 	<%= f.association :item, :collection_select => Item.all.order(:number_rev_name), label_method: :number_rev_name, value_method: :id, :prompt => 'Choose an existing Item' %> <!-- :name_and_number -->
+	<%= link_to 'or create a new Item', new_item_path, class: 'btn btn-primary' %>
+
 	<!-- < f.association :item, :collection => @item_list, :label_method => :name_and_number, :value_method => :id, :prompt => 'Choose an existing Item' %> -->
 	<%= f.input :amount, label: 'Order Quantity' %>
-	<%= link_to_remove_association "remove", f %>
+	<%= link_to_remove_association "remove", f, class: 'btn btn-primary' %>
+</div>
 </div>
 
 <!-- <b>< f.label :item_ids, "Item(s)" %></b><br>
