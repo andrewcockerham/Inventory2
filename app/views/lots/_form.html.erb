@@ -1,8 +1,9 @@
+<div class='well'>
 <%= simple_form_for(@lot) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :number %>
+    <%= f.input :number, label: 'Part Number' %>
     <%= f.input :initial_qty %>
     <%= f.input :current_qty %>
     <%= f.label :item_id, "Item" %><br>
@@ -23,3 +24,4 @@
     <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>
+</div>
