@@ -12,6 +12,7 @@
       <th>Cost</th>
       <th>Estimated Arrival</th>
       <th>Status</th>
+      <th>Supplier</th>
     </tr>
   </thead>
 
@@ -32,6 +33,8 @@
         <td><%= purchase_order.estimated_arrival %></td>
         <td><% if purchase_order.status %> Received
           <% else %> Pending <% end %></td> 
+        <td><% if purchase_order.supplier %>
+          <%= purchase_order.supplier.name %> <% end %></td>
 <!--         <td>< link_to 'Edit', edit_purchase_order_path(purchase_order) %></td> -->
         <td><%= link_to 'Destroy', purchase_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

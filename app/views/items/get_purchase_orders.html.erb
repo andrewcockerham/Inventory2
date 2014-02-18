@@ -1,0 +1,24 @@
+<h1>Purchase Orders for <strong><%= @item.name_and_number %></strong></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>PO number</th>
+      <th>Date</th>
+      <th>Supplier</th>
+      <th>Cost</th>
+      <th>Status</th>
+      <th>Estimated Arrival</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @purchase_orders.each do |po| %>
+      <tr>
+        <td><%= po.purchase_order_number %></td>
+        <td><%= po.date %></td>
+        <td><%= po.supplier.name unless po.supplier.nil? %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>

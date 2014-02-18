@@ -1,6 +1,15 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
+
+###### my custom methods
+  
+  # show all purchase orders of an item
+  def get_purchase_orders
+    @item = Item.find(params[:id])
+    @purchase_orders = @item.purchase_orders
+  end
+
   # GET /items
   # GET /items.json
   def index

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140216222845) do
+ActiveRecord::Schema.define(version: 20140218123438) do
 
   create_table "employees", force: true do |t|
     t.string   "first_name"
@@ -78,10 +78,12 @@ ActiveRecord::Schema.define(version: 20140216222845) do
     t.datetime "updated_at"
     t.boolean  "status"
     t.date     "estimated_arrival"
+    t.integer  "supplier_id"
   end
 
   add_index "purchase_orders", ["estimated_arrival"], name: "index_purchase_orders_on_estimated_arrival"
   add_index "purchase_orders", ["status"], name: "index_purchase_orders_on_status"
+  add_index "purchase_orders", ["supplier_id"], name: "index_purchase_orders_on_supplier_id"
 
   create_table "quantities", force: true do |t|
     t.integer  "purchase_order_id"

@@ -22,6 +22,9 @@
       <%= @purchase_order.purchase_order_number %>
       <%= f.hidden_field :purchase_order_number, value: @purchase_order.purchase_order_number %>
       <!-- < f.number_field :purchase_order_number %> -->
+      <strong>Supplier:</strong>
+       <!-- < f.input :supplier, as: :collection_select %> -->
+       <%= f.collection_select :supplier_id, Supplier.order(:name), :id, :name, :prompt => 'Choose an existing Supplier'%><br>
     </div>
   </div>
   <!--      < Item.all.each do |item| %>
