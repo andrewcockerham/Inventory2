@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140218123438) do
+ActiveRecord::Schema.define(version: 20140219131023) do
 
   create_table "employees", force: true do |t|
     t.string   "first_name"
@@ -91,7 +91,25 @@ ActiveRecord::Schema.define(version: 20140218123438) do
     t.integer  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "amount_received"
+    t.integer  "amount_remaining"
   end
+
+  add_index "quantities", ["amount_received"], name: "index_quantities_on_amount_received"
+  add_index "quantities", ["amount_remaining"], name: "index_quantities_on_amount_remaining"
+
+  create_table "receptions", force: true do |t|
+    t.date     "date"
+    t.integer  "quantity"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "purchase_order_id"
+    t.integer  "supplier_id"
+    t.integer  "lot_id"
+  end
+
+  add_index "receptions", ["date"], name: "index_receptions_on_date"
 
   create_table "suppliers", force: true do |t|
     t.string   "name"

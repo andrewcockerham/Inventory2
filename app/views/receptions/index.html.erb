@@ -1,0 +1,35 @@
+<h1>Receiving Log</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Purchase Order</th>
+      <th>Quantity</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @receptions.each do |reception| %>
+      <tr>
+        <td><%= reception.date %></td>
+        <td><% if reception.purchase_order_id %> 
+          <% purchase_order = PurchaseOrder.find(reception.purchase_order_id)  %>
+            <%= purchase_order.purchase_order_number %>
+            <% end %></td>
+        <td><%= reception.quantity %></td>
+        <td><%= reception.description %></td>
+        <td><%= link_to 'Show', reception %></td>
+        <td><%= link_to 'Edit', edit_reception_path(reception) %></td>
+        <td><%= link_to 'Destroy', reception, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Reception', new_reception_path %>

@@ -1,0 +1,30 @@
+<%= simple_form_for(@reception) do |f| %>
+  <% if @reception.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@reception.errors.count, "error") %> prohibited this reception from being saved:</h2>
+
+      <ul>
+      <% @reception.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.input :date %>
+  </div>
+  <strong>Purchase Order:</strong>
+   <%= f.collection_select :purchase_order_id, PurchaseOrder.order(:purchase_order_number), :id, :purchase_order_number, :prompt => 'Choose an existing PurchaseOrder'%><br>
+  <div class="field">
+    <%= f.label :quantity %><br>
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

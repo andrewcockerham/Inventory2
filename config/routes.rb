@@ -1,5 +1,7 @@
 Inventory2::Application.routes.draw do
 
+  resources :receptions
+
   root "purchase_orders#index"
 
   resources :employees
@@ -19,6 +21,9 @@ Inventory2::Application.routes.draw do
   resources :purchase_orders
 
   get 'items/:id/purchase_orders' => 'items#get_purchase_orders', as: :item_orders
+
+  # receiving log
+  # get 'purchase_orders/:id/receiving' => 'purchase_orders#receiving', as: :receiving
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

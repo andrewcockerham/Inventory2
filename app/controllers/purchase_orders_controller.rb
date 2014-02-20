@@ -1,10 +1,15 @@
 class PurchaseOrdersController < ApplicationController
   before_action :set_purchase_order, only: [:show, :edit, :update, :destroy]
 
+  #### my custom methods ####
+  # def receiving
+  #   @purchase_orders = PurchaseOrder.order("purchase_order_number desc")
+  # end
+
   # GET /purchase_orders
   # GET /purchase_orders.json
   def index
-    @purchase_orders = PurchaseOrder.all
+    @purchase_orders = PurchaseOrder.order("purchase_order_number desc")
   end
 
   # GET /purchase_orders/1
@@ -46,7 +51,16 @@ class PurchaseOrdersController < ApplicationController
     respond_to do |format|
       if @purchase_order.save
         @purchase_order.quantities.each do |quantity|
+          ## fix amount fields 
+          quantity.amount_received = 0
+          quantity.amount_remaining = quantity.amount
+          quantity.save
+          ### end fix amount fields
           @item = Item.find(quantity.item_id)
+          if @item.on_order_qty.nil?
+            @item.on_order_qty = 0
+            @item.save
+          end
           @item.on_order_qty += quantity.amount
           @item.save
         end

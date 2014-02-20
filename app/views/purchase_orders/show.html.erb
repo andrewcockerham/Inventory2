@@ -13,10 +13,14 @@
   <% @purchase_order.items.each do |item| %>
   	<%= item.name_and_number %><br>
     <!-- < item.supplier %><br> -->
-    <em>Amount</em>
+    <em>Amount Ordered</em>
     <% @q.each do |q| %>
       <% if q.item_id == item.id %>
         <%= q.amount %><br>
+        <% if q.amount_received && q.amount_remaining %>
+          <em>Amount received: <%= q.amount_received %></em><br>
+          <em>Amount remaining: <%= q.amount_remaining %></em>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

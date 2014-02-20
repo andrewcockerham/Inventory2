@@ -25,7 +25,6 @@ class QuantitiesController < ApplicationController
   # POST /quantities.json
   def create
     @quantity = Quantity.new(quantity_params)
-
     respond_to do |format|
       if @quantity.save
         format.html { redirect_to @quantity, notice: 'Quantity was successfully created.' }
@@ -69,7 +68,7 @@ class QuantitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def quantity_params
-      params.require(:quantity).permit(:amount, :item_id,
+      params.require(:quantity).permit(:amount, :item_id, :amount_received, :amount_remaining,
                                              :items => [:id, :item_id],
                                              :item_ids => [:id, :item_id], :quantity => [],
                                              :item_attributes => [:id, :item_id], 

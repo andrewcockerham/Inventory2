@@ -12,6 +12,7 @@ class PurchaseOrder < ActiveRecord::Base
 	# has_many :suppliers, :through => :orders #, :source => :supplier_id
 
 	belongs_to :supplier
+	belongs_to :reception
 
 	accepts_nested_attributes_for :quantities, 
 											:reject_if => :all_blank,

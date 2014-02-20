@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @reception.date %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @reception.quantity %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @reception.description %>
+</p>
+
+<%= link_to 'Edit', edit_reception_path(@reception) %> |
+<%= link_to 'Back', receptions_path %>

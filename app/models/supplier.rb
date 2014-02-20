@@ -7,4 +7,6 @@ class Supplier < ActiveRecord::Base
 
 	has_many :parts, dependent: :destroy
 	has_many :items, :through => :parts
+
+	belongs_to :reception
 end

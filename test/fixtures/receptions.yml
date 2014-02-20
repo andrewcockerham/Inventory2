@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 
+  quantity: 1
+  description: MyString
+
+two:
+  date: 
+  quantity: 1
+  description: MyString
