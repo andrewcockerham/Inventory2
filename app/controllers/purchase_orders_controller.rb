@@ -51,7 +51,7 @@ class PurchaseOrdersController < ApplicationController
     @item_list = Item.all.order(:part_number)
     # @item_list = Item.where('student_advisor' => true)
 
-    @purchase_order.status = "Pending"
+    @purchase_order.status = false
   end
 
   # GET /purchase_orders/1/edit
