@@ -48,6 +48,9 @@ class ItemsController < ApplicationController
     # Item.create_number_rev_name
     @item.number_rev_name = @item.number_and_rev + " " + @item.name
     @item.on_order_qty = 0
+    @item.in_inspection_qty = 0
+    @item.stock_qty = 0
+    @item.ncmr_qty = 0
     respond_to do |format|
       if @item.save
         format.html { redirect_to @item, notice: 'Item was successfully created.' }

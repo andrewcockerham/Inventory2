@@ -1,0 +1,39 @@
+(input for accepted, ncmr, rejected)
+
+<div class='well'>
+	<p>
+	  <strong>Lot Number:</strong>
+	  <%= @lot.number %>
+	</p>
+
+	<p>
+	  <strong>Received Quantity:</strong>
+	  <%= @lot.received_qty %>
+	</p>
+
+	<p>
+	  <strong>Inventory Quantity:</strong>
+	  <%= @lot.inventory_qty %>
+	</p>
+
+	<p>
+	  <strong>Item:</strong>
+	  <%= Item.find(@lot.item_id).number_rev_name %>
+	</p>
+
+	<p>
+	  <strong>Cleaned:</strong>
+	  <%= @lot.cleaned %>
+	</p>
+</div>
+<div>
+	<%= simple_form_for(@lot) do |f| %>
+	
+		<%= f.input :received_qty, as: :string %>
+		<%= f.input :accepted_qty, as: :string %>
+		<%= f.input :rejected_qty, as: :string %>
+		<%= f.label 'Status' %>
+		<%= f.select :status, @status_list.map { |value| [ value, value] } %>
+		<%= f.submit 'Release Lot', class: 'btn btn-primary' %>
+	<% end %>
+</div>

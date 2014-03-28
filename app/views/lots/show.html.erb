@@ -6,15 +6,27 @@
 </p>
 
 <p>
-  <strong>Initial qty:</strong>
-  <%= @lot.initial_qty %>
+  <strong>Received Quantity:</strong>
+  <%= @lot.received_qty %>
 </p>
-
 <p>
-  <strong>Current qty:</strong>
-  <%= @lot.current_qty %>
+  <strong>Accepted Quantity:</strong>
+  <%= @lot.accepted_qty %>
 </p>
-
+<p>
+  <strong>Inventory Quantity:</strong>
+  <% if !@lot.cleaned %>
+    Pending Cleaning 
+  <% else %>
+    <%= @lot.inventory_qty %>
+  <% end %>
+</p>
+<% if @lot.cleaned %>
+<p>
+  <strong>Date Cleaned:</strong>
+    <%= @lot.date_cleaned.to_formatted_s(:long) %>
+</p>
+<% end %>
 <p>
   <strong>Item:</strong>
   <%= Item.find(@lot.item_id).number_rev_name %>

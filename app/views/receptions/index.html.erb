@@ -7,6 +7,7 @@
       <th>Purchase Order</th>
       <th>Quantity</th>
       <th>Description</th>
+      <th>Remaining on PO</th>
       <th></th>
       <th></th>
     </tr>
@@ -22,6 +23,7 @@
             <% end %></td>
         <td><%= reception.quantity %></td>
         <td><%= reception.description %></td>
+        <!-- <td>< purchase_order.quantitiesremaining_qty %></td> -->
         <td><%= link_to 'Show', reception %></td>
         <td><%= link_to 'Edit', edit_reception_path(reception) %></td>
         <td><%= link_to 'Destroy', reception, method: :delete, data: { confirm: 'Are you sure?' } %></td>

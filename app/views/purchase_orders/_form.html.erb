@@ -1,4 +1,4 @@
-<div class='well col-md-8'>
+<!-- <div class='well col-md-10'> -->
   <%= simple_form_for @purchase_order do |f| %>
     <% if @purchase_order.errors.any? %>
       <div id="error_explanation">
@@ -12,21 +12,38 @@
       </div>
     <% end %>
     <div class="row">
-    <div class="field col-lg-4">
+    <!-- <div class="field col-lg-5"> -->
       <strong><%= f.label :date %></strong>
       <%= f.date_select :date %>
-    </div>
-    <div class="field">
+    <!-- </div> -->
+    <!-- <div class="field"> -->
+    
       <strong>Purchase Order Number:</strong>
       <!-- f.label :purchase_order_number %>: -->
       <%= @purchase_order.purchase_order_number %>
       <%= f.hidden_field :purchase_order_number, value: @purchase_order.purchase_order_number %>
       <!-- < f.number_field :purchase_order_number %> -->
+    <!-- </div> -->
+    <!-- <div class="field"> -->
       <strong>Supplier:</strong>
        <!-- < f.input :supplier, as: :collection_select %> -->
-       <%= f.collection_select :supplier_id, Supplier.order(:name), :id, :name, :prompt => 'Choose an existing Supplier'%><br>
+       <%= f.collection_select(:supplier_id, Supplier.order(:name), :id, :name, { :prompt => 'Choose an existing Supplier' }, { class: 'supplier_select', data: { remote: true }}) %>
+       <%= link_to 'test link, hide this', new_item_path, id: 'supplier_select', remote: true %>
+<!--    :onchange => "alert_me_test()",
+    < select_tag 'supplier_select', options_from_collection_for_select(@suppliers, "id", "name"), class: 'supplier_select', remote: true %><br> -->
+   <!--     < f.collection_select :supplier_id, Supplier.order(:name), :id, :name, :prompt => 'Choose an existing Supplier', id: "supplier_select" %><br> id: 'supplier_select'-->
+       <!-- < f.collection_select(:city_id, 
+               City.all, :id, :name, {},
+               {:data => {  :remote => true,
+                           :url => url_for(:controller => "locations", 
+                                           :action => "filter_by_city")
+                       }
+               }
+           )
+       %> -->
+     <!-- </div> -->
     </div>
-  </div>
+  <!-- </div> -->
   <!--      < Item.all.each do |item| %>
         < check_box_tag "purchase_order[item_ids][]", item.id %>
         < item.name %>
@@ -38,12 +55,16 @@
       < end %> -->
   <!--     <b>< f.label :item_ids, "Item(s)" %></b><br>
       < f.collection_select :item_ids, Item.order(:part_number), :id, :name_and_number, {}, {multiple: true} %><br> -->
-    <%= f.simple_fields_for :quantities do |quantity| %>
-      <%= render 'quantity_fields', :f => quantity %>
-    <% end %>
-    <div class="links">
-      <%= link_to_add_association 'Add item', f, :quantities, class: 'btn btn-primary' %><br><br>
-    </div>
+      <!-- @purchase_order.quantities.each -->
+      <div id='items'>
+        <%= f.simple_fields_for :quantities do |quantity| %>
+          <%= render 'quantity_fields', :f => quantity %>
+        <% end %>
+        <div class="links">
+          <%= link_to_add_association 'Add item', f, :quantities, class: 'btn btn-primary' %><br><br>
+          <!-- On click this link, call @purchase_order.quantities.build? -->
+        </div>
+      </div>
   <!--   < f.label :supplier_ids, "Supplier" %><br>
     < f.collection_select :supplier_ids, Supplier.order(:name), :id, :name, {}, {multiple: true} %><br> -->
   <!--   < f.fields_for :suppliers do |supplier| %>
@@ -56,7 +77,8 @@
     </div>
 
     <div class="actions">
-      <%= f.submit %>
+      <!-- < f.submit, class: 'btn btn-primary' %> -->
+      <%= f.button :submit, class: 'btn btn-primary' %>
     </div>
   <% end %>
-</div><br>
+<br>

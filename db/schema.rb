@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140219131023) do
+ActiveRecord::Schema.define(version: 20140328112605) do
+
+  create_table "build_lots", force: true do |t|
+    t.integer  "my_build_id"
+    t.integer  "lot_id"
+    t.integer  "pull_quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "pull_date"
+    t.integer  "employee_id"
+  end
+
+  add_index "build_lots", ["lot_id"], name: "index_build_lots_on_lot_id"
+  add_index "build_lots", ["my_build_id"], name: "index_build_lots_on_my_build_id"
 
   create_table "employees", force: true do |t|
     t.string   "first_name"
@@ -43,14 +56,44 @@ ActiveRecord::Schema.define(version: 20140219131023) do
 
   create_table "lots", force: true do |t|
     t.integer  "number"
-    t.integer  "initial_qty"
-    t.integer  "current_qty"
+    t.integer  "received_qty"
+    t.integer  "inventory_qty"
     t.integer  "item_id"
     t.boolean  "cleaned"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status"
+    t.integer  "purchase_order_id"
+    t.date     "received_date"
+    t.boolean  "full_po_qty"
+    t.integer  "accepted_qty"
+    t.integer  "rejected_qty"
+    t.date     "date_cleaned"
   end
+
+  add_index "lots", ["accepted_qty"], name: "index_lots_on_accepted_qty"
+  add_index "lots", ["date_cleaned"], name: "index_lots_on_date_cleaned"
+  add_index "lots", ["full_po_qty"], name: "index_lots_on_full_po_qty"
+  add_index "lots", ["purchase_order_id"], name: "index_lots_on_purchase_order_id"
+  add_index "lots", ["received_date"], name: "index_lots_on_received_date"
+  add_index "lots", ["rejected_qty"], name: "index_lots_on_rejected_qty"
+
+  create_table "my_builds", force: true do |t|
+    t.integer  "start_qty"
+    t.integer  "scrap_qty"
+    t.string   "description"
+    t.date     "start_date"
+    t.date     "ship_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "complete"
+    t.boolean  "current"
+  end
+
+  add_index "my_builds", ["complete"], name: "index_my_builds_on_complete"
+  add_index "my_builds", ["current"], name: "index_my_builds_on_current"
+  add_index "my_builds", ["scrap_qty"], name: "index_my_builds_on_scrap_qty"
+  add_index "my_builds", ["start_qty"], name: "index_my_builds_on_start_qty"
 
   create_table "orders", force: true do |t|
     t.integer  "purchase_order_id"
@@ -76,9 +119,9 @@ ActiveRecord::Schema.define(version: 20140219131023) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "status"
     t.date     "estimated_arrival"
     t.integer  "supplier_id"
+    t.string   "status"
   end
 
   add_index "purchase_orders", ["estimated_arrival"], name: "index_purchase_orders_on_estimated_arrival"
@@ -106,7 +149,6 @@ ActiveRecord::Schema.define(version: 20140219131023) do
     t.datetime "updated_at"
     t.integer  "purchase_order_id"
     t.integer  "supplier_id"
-    t.integer  "lot_id"
   end
 
   add_index "receptions", ["date"], name: "index_receptions_on_date"

@@ -11,18 +11,20 @@
 <p>
   <strong>Items:</strong><br>
   <% @purchase_order.items.each do |item| %>
-  	<%= item.name_and_number %><br>
-    <!-- < item.supplier %><br> -->
-    <em>Amount Ordered</em>
-    <% @q.each do |q| %>
-      <% if q.item_id == item.id %>
-        <%= q.amount %><br>
-        <% if q.amount_received && q.amount_remaining %>
-          <em>Amount received: <%= q.amount_received %></em><br>
-          <em>Amount remaining: <%= q.amount_remaining %></em>
+<!--     <div class='box'>
+ -->    	<%= item.name_and_number %><br>
+      <!-- < item.supplier %><br> -->
+      <em>Amount Ordered</em>
+      <% @q.each do |q| %>
+        <% if q.item_id == item.id %>
+          <%= q.amount %><br>
+          <% if q.amount_received && q.amount_remaining %>
+            <em>Amount received: <%= q.amount_received %></em><br>
+            <em>Amount remaining: <%= q.amount_remaining %></em>
+          <% end %>
         <% end %>
-      <% end %>
-    <% end %>
+      <% end %><br><br>
+    <!-- </div> -->
   <% end %>
 </p>
 <p>
@@ -47,6 +49,10 @@
 <p>
   <strong>Estimated Arrival:</strong>
   <%= @purchase_order.estimated_arrival %>
+</p>
+<p>
+  <strong>Status:</strong>
+  <%= @purchase_order.status %>
 </p>
 </div>
 <%= link_to 'Edit', edit_purchase_order_path(@purchase_order) %> |

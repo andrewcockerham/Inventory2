@@ -1,12 +1,23 @@
-<div class='nested-fields'> 
-	<div class='well'> <!-- border? -->
-	<%= f.association :item, :collection_select => Item.all.order(:number_rev_name), label_method: :number_rev_name, value_method: :id, :prompt => 'Choose an existing Item' %> <!-- :name_and_number -->
-	<%= link_to 'or create a new Item', new_item_path, class: 'btn btn-primary' %>
+<div class='nested-fields quantity-fields'> 
+	<div class='well'>  <!-- border? -->
+		<!-- <fieldset> -->
+	<div id='item_from_list'>
+		<!-- < f.association :item, :collection_select => Item.all.order(:number_rev_name), label_method: :number_rev_name, value_method: :id, :prompt => 'Choose an existing Item'  %>--> <!-- :name_and_number -->
+		<!-- < f.association :item, grouped_collection_select: Supplier.order(:name),label_method: :number_rev_name, value_method: :id, :prompt => 'Choose an existing Item'  %> -->
 
-	<!-- < f.association :item, :collection => @item_list, :label_method => :name_and_number, :value_method => :id, :prompt => 'Choose an existing Item' %> -->
-	<%= f.input :amount, label: 'Order Quantity' %>
-	<%= link_to_remove_association "remove", f, class: 'btn btn-primary' %>
-</div>
+		<!-- < f.input :item_id, collection: Item.order(:number_rev_name), as: :grouped_select, group_method: :suppliers, group_label_method: :name, label_method: :name, value_method: :id, :prompt => 'Choose an existing Item'  %> THIS ONE IS OPPOSITE -->
+
+		<%= f.input :item_id, collection: Supplier.order(:name), as: :grouped_select, group_method: :items, group_label_method: :name, label_method: :name, value_method: :id, :prompt => 'Choose an existing Item', input_html: { id: 'quantity_item_select'} %>
+
+		<!-- : Supplier.order(:name)
+		< link_to_add_association 'or create a new item', f, :item %>  #### FROM COCOON (could add this functionality, but not necessary -->
+		<%= link_to 'or create a new Item', new_item_path, class: 'btn btn-primary' %>
+		<!-- < f.association :item, :collection => @item_list, :label_method => :name_and_number, :value_method => :id, :prompt => 'Choose an existing Item' %> -->
+		<%= f.input :amount, label: 'Order Quantity' %>
+		<%= link_to_remove_association "remove item", f, class: 'btn btn-primary' %>
+		<!-- </fieldset> -->
+	</div>
+	</div>
 </div>
 
 <!-- <b>< f.label :item_ids, "Item(s)" %></b><br>

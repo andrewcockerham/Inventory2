@@ -7,8 +7,10 @@
       <th>Revision</th>
       <th>Name</th>
       <th>On order qty</th>
+      <th>Purchase Order</th>
+      <th>Expected Arrival Date</th>
       <th>In inspection qty</th>
-      <th>Stock qty</th>
+      <th>Inventory qty</th>
       <th>Ncmr qty</th>
       <!-- <th>Name and number</th> -->
     </tr>
@@ -21,6 +23,16 @@
         <td><%= item.revision %></td>
         <td><%= item.name %></td>
         <td><%= item.on_order_qty %></td>
+        <td><% if item.on_order_qty > 0 && Quantity.where(item_id: item.id).order('created_at desc').first %>
+              <%= link_to PurchaseOrder.find(Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id).purchase_order_number, purchase_order_path(PurchaseOrder.find(Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id))  %>
+            <% end %></td>
+        <td>
+          <% if item.on_order_qty > 0 %>
+            <%= link_to(PurchaseOrder.find(Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id).estimated_arrival.to_formatted_s(:long), purchase_order_path(id: PurchaseOrder.find(Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id))) if Quantity.where(item_id: item.id).order('created_at desc').first %>
+          <% else %>
+            N/A
+          <% end %>
+        </td>
         <td><%= item.in_inspection_qty %></td>
         <td><%= item.stock_qty %></td>
         <td><%= item.ncmr_qty %></td>

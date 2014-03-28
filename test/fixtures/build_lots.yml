@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  my_build_id: 1
+  lot_id: 1
+  pull_quantity: 1
+
+two:
+  my_build_id: 1
+  lot_id: 1
+  pull_quantity: 1

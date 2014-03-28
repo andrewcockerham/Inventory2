@@ -2,12 +2,31 @@
 <%= simple_form_for(@lot) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :number, label: 'Part Number' %>
-    <%= f.input :initial_qty %>
-    <%= f.input :current_qty %>
-    <%= f.label :item_id, "Item" %><br>
-    <%= f.collection_select :item_id, Item.order(:name), :id, :name, {} %><br>
+  <!-- <div class="form-inputs"> -->
+    <div class="row">
+      <%= f.input :received_date %>
+      <%= f.label 'Lot Number' %>
+      <%= @lot.number %>
+      <%= f.hidden_field :number, value: @lot.number %>
+      <!-- use JavaScript to pull only POs for that item -->
+      <!-- Quantity.find_all_by_item_id(here choose the item id from pervious input) -->
+      <!-- Quantity.where(item_id = value from previous input) -->
+      <%= f.label :purchase_order_id, label: 'Purchase Order' %>
+      <%= f.collection_select(:purchase_order_id, PurchaseOrder.where(status: "Pending").order(:purchase_order_number), :id, :purchase_order_number, { prompt: 'Choose a pending PO' }, { class: 'purchase_order_select', data: { remote: true }}) %><br>
+
+      <!-- Use JavaScript to auto fill the items list -->
+      <%= f.label :item_id, "Item" %>
+      <!-- < f.collection_select :item_id, Item.order(:name), :id, :number_rev_name, {}, { id: 'item_select_id', data: { remote: true }} %><br> -->
+      <%= f.input :item_id, collection: PurchaseOrder.where(status: "Pending").order(:purchase_order_number), as: :grouped_select, group_method: :items, group_label_method: :purchase_order_number, label_method: :name, value_method: :id, :prompt => 'Choose an pending Item', input_html: { id: 'item_select_id'} %>
+      <!-- < if PO.amount_received = 0 %> -->
+        <%= f.label "","Full PO Qty Received?" %>
+        <%= check_box 'full_po_checkbox', :full_po_qty %>
+      <!-- < f.input :full_po_qty %> -->
+      <!-- Add checkbox for receive full PO - then auto fill qty -->
+      <%= f.input :received_qty, label: 'Received Qty', input_html: {id: 'received_qty'}%>
+      <!-- display PO qty -->
+    </div>
+    
     <!-- < f.fields_for :items do |item| %> -->
       <!-- < render 'item_fields', :f => item %> -->
      <!-- end %>  -->
@@ -15,13 +34,34 @@
     <%= f.input :cleaned %>
     <!-- < f.collection_select :status, @status_list,  %> -->
     <!-- < select_tag "status", options_for_select(@status_list) %> -->
-        <b><%= f.label :status, "Status" %></b><br>
-        <%= f.select :status, @status_list.map { |value| [ value, value] } %><br>
+    <b><%= f.label :status, "Status" %></b>
+    <%= f.select :status, @status_list.map { |value| [ value, value] } %><br>
     <!-- < f.association :item, :collection => @item_list, :label_method => :name_and_number, :value_method => :id, :prompt => 'Choose an existing Item' %> -->
-  </div>
+  <!-- </div> -->
 
   <div class="form-actions">
     <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
-<% end %>
+
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      var items;
+
+      items = $('#item_select_id').html();
+
+      $('.purchase_order_select').change(function() {
+        var options, po;
+        po = $('.purchase_order_select :selected').text();
+        options = $(items).filter(function(index) {
+          return $(this).attr("label") === po;
+        });
+        // make Ajax call to remove full po checkbox if the po has been
+        //  already partially received
+        if (options) {
+          return $('#item_select_id').html(options);
+        }
+      });
+    });
+  </script>
+  <% end %>
 </div>

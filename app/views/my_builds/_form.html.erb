@@ -1,0 +1,39 @@
+<%= simple_form_for(@my_build) do |f| %>
+  <% if @my_build.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@my_build.errors.count, "error") %> prohibited this my_build from being saved:</h2>
+
+      <ul>
+      <% @my_build.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.input :start_qty, as: :string %>
+  </div>
+  <div class="field">
+    <%= f.input :scrap_qty, as: :string %>
+  </div>
+  <div class="field">
+    <%= f.input :description %>
+  </div>
+  <div class="field">
+    <%= f.input :start_date %>
+  </div>
+  <div class="field">
+    <%= f.input :ship_date %>
+  </div>
+  <div class="field">
+    <%= f.input :complete %>
+  </div>
+  <div class="field">
+    <%= f.input :current %>
+  </div>
+  <div class="actions">
+    <!-- < f.button :submit, class: 'btn btn-primary', label: 'New Build' %> -->
+    <%= f.submit 'New Build', class: 'btn btn-primary' %>
+  </div>
+<% end %>

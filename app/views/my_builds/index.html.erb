@@ -1,0 +1,35 @@
+<h1>Builds Log</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Qty</th>
+      <th>Scrap qty</th>
+      <th>Start date</th>
+      <th>Ship date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @my_builds.each do |my_build| %>
+      <tr>
+        <td><%= link_to my_build.description, my_build %></td>
+        <td><%= my_build.start_qty %></td>
+        <td><%= my_build.scrap_qty %></td>
+        <td><%= my_build.start_date %></td>
+        <td><%= my_build.ship_date %></td>
+        <td><%= link_to 'Show', my_build %></td>
+        <td><%= link_to 'Edit', edit_my_build_path(my_build) %></td>
+        <td><%= link_to 'Destroy', my_build, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Build', new_my_build_path %>

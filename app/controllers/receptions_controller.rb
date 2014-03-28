@@ -29,6 +29,7 @@ class ReceptionsController < ApplicationController
     respond_to do |format|
       if @reception.save
         @purchase_order = PurchaseOrder.find(@reception.purchase_order_id)
+        # if @purchase_order.quantities.find_by_item_id()
         if @purchase_order.quantities[0].amount_remaining
           @purchase_order.quantities[0].amount_remaining -= @reception.quantity
           @purchase_order.quantities[0].amount_received += @reception.quantity

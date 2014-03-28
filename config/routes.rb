@@ -1,5 +1,7 @@
 Inventory2::Application.routes.draw do
 
+  resources :my_builds
+
   resources :receptions
 
   root "purchase_orders#index"
@@ -21,6 +23,22 @@ Inventory2::Application.routes.draw do
   resources :purchase_orders
 
   get 'items/:id/purchase_orders' => 'items#get_purchase_orders', as: :item_orders
+
+  get 'inspection' => 'lots#inspection', as: :inspection
+
+  ## PENDING PO's
+  get 'pending_purchase_orders' => 'purchase_orders#pending', as: :pending_purchase_orders
+
+  ### RELEASE A LOT
+  get 'lots/:id/release' => 'lots#release', as: :release
+
+  ### SONICATION LOG
+  get 'sonication' => 'lots#sonication', as: :sonication
+
+  ### PULL PATH
+  get 'lots/:id/pull' => 'lots#pull', as: :pull
+
+  # get 'receiving_log' => 'lots#receiving_log', as: :receiving_log
 
   # receiving log
   # get 'purchase_orders/:id/receiving' => 'purchase_orders#receiving', as: :receiving

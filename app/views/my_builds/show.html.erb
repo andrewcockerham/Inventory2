@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Qty:</strong>
+  <%= @my_build.start_qty %>
+</p>
+
+<p>
+  <strong>Scrap qty:</strong>
+  <%= @my_build.scrap_qty %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @my_build.description %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @my_build.start_date %>
+</p>
+
+<p>
+  <strong>Ship date:</strong>
+  <%= @my_build.ship_date %>
+</p>
+<p>
+  <strong>Complete:</strong>
+  <%= @my_build.complete %>
+</p>
+<p>
+  <strong>Current:</strong>
+  <%= @my_build.current %>
+</p>
+<%= link_to 'Edit', edit_my_build_path(@my_build) %> |
+<%= link_to 'Back', my_builds_path %>

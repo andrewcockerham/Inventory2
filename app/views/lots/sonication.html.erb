@@ -1,0 +1,27 @@
+<table>
+	<thead>
+			<tr>
+				<th>Lot Number</th>
+				<th>Item</th>
+				<th>Quantity</th>
+				<th>Cleaned</th>
+			</tr>
+	</thead>
+
+	<tbody>
+		<% @lots.each do |lot| %>
+			<%= simple_form_for(lot) do |f| %>
+				<tr>
+					<td><%= lot.number %></td>
+					<td><%= Item.find(lot.item_id).number_rev_name %></td>
+					<td><%= lot.accepted_qty %></td>
+					<td><!-- < f.collection_select :status, @status_list.map { |value| [ value, value] }, @status_list.key, @status_list.value, prompt: 'Choose' %> -->
+					<!-- td>< lot.status %></td> -->  <!-- make this a dropdown menu -->
+					<%= f.input :cleaned %></td>
+					<%= f.hidden_field :date_cleaned, value: Date.today %>
+					<td><%= f.submit "Update", class: 'btn btn-primary btn-sm' %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>

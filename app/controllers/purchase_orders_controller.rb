@@ -6,20 +6,31 @@ class PurchaseOrdersController < ApplicationController
   #   @purchase_orders = PurchaseOrder.order("purchase_order_number desc")
   # end
 
+  def pending
+    @purchase_orders = PurchaseOrder.where(status: "Pending")
+  end
+
   # GET /purchase_orders
   # GET /purchase_orders.json
   def index
     @purchase_orders = PurchaseOrder.order("purchase_order_number desc")
+    # if purchase_order.estimated_arrival <= Date.today %> Overdue 
+    # < else %> Pending < end %></td>
+    # Recieved
   end
 
   # GET /purchase_orders/1
   # GET /purchase_orders/1.json
   def show
     @q = Quantity.all.find_all_by_purchase_order_id(@purchase_order.id)
+    # @q = Quantity.where(@purchase_order.id).all 
   end
 
   # GET /purchase_orders/new
   def new
+    @suppliers = Supplier.all
+    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Used', 4]]
+
     @purchase_order = PurchaseOrder.new
     @todays_date = Date.today.to_s.delete("-")
     if PurchaseOrder.first
@@ -33,10 +44,13 @@ class PurchaseOrdersController < ApplicationController
     end
     @purchase_order.purchase_order_number = @next_po_number
     @purchase_order.quantities.build
+    # @purchase_order.quantities.build # just temporary test if creates two quantities
 
     # create list of items for quantites partial
     @item_list = Item.all.order(:part_number)
-    # @item_list = Item.where('student_advisor' => true) 
+    # @item_list = Item.where('student_advisor' => true)
+
+    @purchase_order.status = "Pending"
   end
 
   # GET /purchase_orders/1/edit
@@ -47,6 +61,8 @@ class PurchaseOrdersController < ApplicationController
   # POST /purchase_orders.json
   def create
     @purchase_order = PurchaseOrder.new(purchase_order_params)
+    # @purchase_order.quantities.build for each item in params?
+    @purchase_order.status = "Pending"
 
     respond_to do |format|
       if @purchase_order.save
@@ -78,6 +94,20 @@ class PurchaseOrdersController < ApplicationController
   def update
     respond_to do |format|
       if @purchase_order.update(purchase_order_params)
+        @purchase_order.quantities.each do |quantity|
+          ## fix amount fields 
+          quantity.amount_received = 0
+          quantity.amount_remaining = quantity.amount
+          quantity.save
+          ### end fix amount fields
+          @item = Item.find(quantity.item_id)
+          if @item.on_order_qty.nil?
+            @item.on_order_qty = 0
+            @item.save
+          end
+          @item.on_order_qty += quantity.amount
+          @item.save
+        end
         format.html { redirect_to @purchase_order, notice: 'Purchase order was successfully updated.' }
         format.json { head :no_content }
       else
@@ -105,7 +135,7 @@ class PurchaseOrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def purchase_order_params
-      params.require(:purchase_order).permit(:date, :purchase_order_number, :cost, :description, :estimated_arrival,
+      params.require(:purchase_order).permit(:date, :purchase_order_number, :cost, :description, :estimated_arrival, :status,
                                              :supplier_id, :supplier => [:id, :supplier_id],
                                              :suppliers => [:id, :supplier_id],
                                              :supplier_ids => [:id, :supplier_id],
