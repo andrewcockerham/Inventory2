@@ -63,7 +63,7 @@ class PurchaseOrdersController < ApplicationController
   def create
     @purchase_order = PurchaseOrder.new(purchase_order_params)
     # @purchase_order.quantities.build for each item in params?
-    @purchase_order.status = "Pending"
+    @purchase_order.status = false
 
     respond_to do |format|
       if @purchase_order.save

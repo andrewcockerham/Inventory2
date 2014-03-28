@@ -12,12 +12,12 @@
       <!-- Quantity.find_all_by_item_id(here choose the item id from pervious input) -->
       <!-- Quantity.where(item_id = value from previous input) -->
       <%= f.label :purchase_order_id, label: 'Purchase Order' %>
-      <%= f.collection_select(:purchase_order_id, PurchaseOrder.where(status: "Pending").order(:purchase_order_number), :id, :purchase_order_number, { prompt: 'Choose a pending PO' }, { class: 'purchase_order_select', data: { remote: true }}) %><br>
+      <%= f.collection_select(:purchase_order_id, PurchaseOrder.where(status: false).order(:purchase_order_number), :id, :purchase_order_number, { prompt: 'Choose a pending PO' }, { class: 'purchase_order_select', data: { remote: true }}) %><br>
 
       <!-- Use JavaScript to auto fill the items list -->
       <%= f.label :item_id, "Item" %>
       <!-- < f.collection_select :item_id, Item.order(:name), :id, :number_rev_name, {}, { id: 'item_select_id', data: { remote: true }} %><br> -->
-      <%= f.input :item_id, collection: PurchaseOrder.where(status: "Pending").order(:purchase_order_number), as: :grouped_select, group_method: :items, group_label_method: :purchase_order_number, label_method: :name, value_method: :id, :prompt => 'Choose an pending Item', input_html: { id: 'item_select_id'} %>
+      <%= f.input :item_id, collection: PurchaseOrder.where(status: false).order(:purchase_order_number), as: :grouped_select, group_method: :items, group_label_method: :purchase_order_number, label_method: :name, value_method: :id, :prompt => 'Choose an pending Item', input_html: { id: 'item_select_id'} %>
       <!-- < if PO.amount_received = 0 %> -->
         <%= f.label "","Full PO Qty Received?" %>
         <%= check_box 'full_po_checkbox', :full_po_qty %>
