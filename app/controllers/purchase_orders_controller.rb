@@ -7,7 +7,8 @@ class PurchaseOrdersController < ApplicationController
   # end
 
   def pending
-    @purchase_orders = PurchaseOrder.where(status: "Pending")
+    # @purchase_orders = PurchaseOrder.where(status: "Pending") ## works on sql3 but not on pg
+    @purchase_orders = PurchaseOrder.where(status: false)
   end
 
   # GET /purchase_orders
