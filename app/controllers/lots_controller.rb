@@ -69,7 +69,7 @@ class LotsController < ApplicationController
   def create
     @lot = Lot.new(lot_params)
     @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Used', 4]]
-    # @lot.inventory_qty = 0
+    @lot.inventory_qty = 0
     respond_to do |format|
       if @lot.save
         ### make sure to put error checks so you can't receive more than was ordered or get a negative number
