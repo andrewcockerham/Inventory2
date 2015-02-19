@@ -16,7 +16,7 @@
 <p>
   <strong>Inventory Quantity:</strong>
   <% if !@lot.cleaned %>
-    Pending Cleaning 
+    Pending Cleaning
   <% else %>
     <%= @lot.inventory_qty %>
   <% end %>
@@ -24,7 +24,7 @@
 <% if @lot.cleaned %>
 <p>
   <strong>Date Cleaned:</strong>
-    <%= @lot.date_cleaned.to_formatted_s(:long) %>
+    <%# @lot.date_cleaned.to_formatted_s(:long) %>
 </p>
 <% end %>
 <p>
