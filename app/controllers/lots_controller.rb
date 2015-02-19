@@ -49,6 +49,7 @@ class LotsController < ApplicationController
   def new
     @lot = Lot.new
     @lot.inventory_qty = 0
+    @lot.accepted_qty = 0
     if Lot.first
       @lot.number = Lot.last.number + 1
     else
@@ -68,12 +69,13 @@ class LotsController < ApplicationController
   def create
     @lot = Lot.new(lot_params)
     @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Used', 4]]
-    @lot.inventory_qty = 0
+    # @lot.inventory_qty = 0
     respond_to do |format|
       if @lot.save
         ### make sure to put error checks so you can't receive more than was ordered or get a negative number
         @po = PurchaseOrder.find(@lot.purchase_order_id)
         @lot.received_qty = 0
+        @lot.accepted_qty = 0
         @lot.save
         if params["full_po_checkbox"]["full_po_qty"] == 1
           @lot.received_qty = @po.quantities.find_by_item_id(@lot.item_id).amount
