@@ -127,6 +127,7 @@ class LotsController < ApplicationController
           @item = Item.find(@lot.item_id)
           # @item.stock_qty += @lot.accepted_qty
           @item.in_inspection_qty -= @lot.accepted_qty
+          @item.stock_qty += @lot.accepted_qty
           @item.save
           @lot.inventory_qty += @lot.accepted_qty
           @lot.save
