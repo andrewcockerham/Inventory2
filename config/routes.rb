@@ -38,6 +38,9 @@ Inventory2::Application.routes.draw do
   ### PULL PATH
   get 'lots/:id/pull' => 'lots#pull', as: :pull
 
+  ### DMR path
+  get 'dmr' => 'items#dmr', as: :dmr
+
   # get 'receiving_log' => 'lots#receiving_log', as: :receiving_log
 
   # receiving log

@@ -3,7 +3,11 @@ class ItemsController < ApplicationController
 
 
 ###### my custom methods
-  
+  # show DMR
+  def dmr
+    
+  end
+
   # show all purchase orders of an item
   def get_purchase_orders
     @item = Item.find(params[:id])

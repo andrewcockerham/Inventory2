@@ -24,7 +24,7 @@
         <td><%= lot.cleaned %></td>
         <td><%= lot.status %></td>
         <td><%= lot.received_date.to_formatted_s(:long) if lot.received_date %></td>
-        <td><%= lot.purchase_order.purchase_order_number %></td>
+        <td><%= lot.purchase_order.purchase_order_number if lot.purchase_order %></td>
         <!-- <td>< link_to 'Show', lot %></td> -->
         <td><% if lot.inventory_qty > 0%>
               <%= link_to 'Pull', pull_path(lot.id) %><% end %></td>
