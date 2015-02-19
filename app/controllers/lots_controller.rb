@@ -9,7 +9,7 @@ class LotsController < ApplicationController
   end
 
   # def inspection_post ??
-    
+
   # end
 
   def release
@@ -87,7 +87,7 @@ class LotsController < ApplicationController
         @po.save
 
         @item = Item.find(@lot.item_id)
-        @item.on_order_qty -= @lot.received_qty
+        @item.on_order_qty -= @lot.received_qty if @lot.received_qty
         @item.in_inspection_qty += @lot.received_qty
         @item.save
 
@@ -108,20 +108,20 @@ class LotsController < ApplicationController
   # PATCH/PUT /lots/1
   # PATCH/PUT /lots/1.json
   def update
-    
+
     respond_to do |format|
       if @lot.update(lot_params)
         # if @lot.cleaned
         if params["lot"]["cleaned"] == "1"
-          @item = Item.find(@lot.item_id) 
+          @item = Item.find(@lot.item_id)
           @item.stock_qty += @lot.accepted_qty
-          @item.save  
+          @item.save
         end
 
         # check for hidden field 'inpsection', if yes
         # add accepted_qty to inventory_qty
         if params["lot"]["accepted_qty"].to_i > 0
-          @item = Item.find(@lot.item_id) 
+          @item = Item.find(@lot.item_id)
           # @item.stock_qty += @lot.accepted_qty
           @item.in_inspection_qty -= @lot.accepted_qty
           @item.save
