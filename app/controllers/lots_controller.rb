@@ -115,7 +115,7 @@ class LotsController < ApplicationController
         # if @lot.cleaned
         if params["lot"]["cleaned"] == "1"
           @item = Item.find(@lot.item_id)
-          @item.stock_qty += @lot.accepted_qty
+          @item.stock_qty += @lot.accepted_qty if @lot.accepted_qty
           @item.save
         end
 

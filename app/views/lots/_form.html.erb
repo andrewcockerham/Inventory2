@@ -17,7 +17,7 @@
       <!-- Use JavaScript to auto fill the items list -->
       <%= f.label :item_id, "Item" %>
       <!-- < f.collection_select :item_id, Item.order(:name), :id, :number_rev_name, {}, { id: 'item_select_id', data: { remote: true }} %><br> -->
-      <%= f.input :item_id, collection: PurchaseOrder.where(status: false).order(:purchase_order_number), as: :grouped_select, group_method: :items, group_label_method: :purchase_order_number, label_method: :name, value_method: :id, :prompt => 'Choose an pending Item', input_html: { id: 'item_select_id'} %>
+      <%= f.input :item_id, collection: PurchaseOrder.where(status: false).order(:purchase_order_number), as: :grouped_select, group_method: :items, group_label_method: :purchase_order_number, label_method: :name, value_method: :id, :prompt => 'Choose a pending Item', input_html: { id: 'item_select_id'} %>
       <!-- < if PO.amount_received = 0 %> -->
         <%= f.label "","Full PO Qty Received?" %>
         <%= check_box 'full_po_checkbox', :full_po_qty %>
@@ -26,7 +26,7 @@
       <%= f.input :received_qty, label: 'Received Qty', input_html: {id: 'received_qty'}%>
       <!-- display PO qty -->
     </div>
-    
+
     <!-- < f.fields_for :items do |item| %> -->
       <!-- < render 'item_fields', :f => item %> -->
      <!-- end %>  -->
@@ -35,7 +35,7 @@
     <!-- < f.collection_select :status, @status_list,  %> -->
     <!-- < select_tag "status", options_for_select(@status_list) %> -->
     <b><%= f.label :status, "Status" %></b>
-    <%= f.select :status, @status_list.map { |value| [ value, value] } %><br>
+    <%= f.select :status, @status_list.map { |value| [value, value] } %><br>
     <!-- < f.association :item, :collection => @item_list, :label_method => :name_and_number, :value_method => :id, :prompt => 'Choose an existing Item' %> -->
   <!-- </div> -->
 
