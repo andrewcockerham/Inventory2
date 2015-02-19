@@ -17,9 +17,9 @@
     <% @receptions.each do |reception| %>
       <tr>
         <td><%= reception.date %></td>
-        <td><% if reception.purchase_order_id %> 
-          <% purchase_order = PurchaseOrder.find(reception.purchase_order_id)  %>
-            <%= purchase_order.purchase_order_number %>
+        <td><% if reception.purchase_order_id %>
+              <% purchase_order = PurchaseOrder.find(reception.purchase_order_id) %>
+              <%= purchase_order.purchase_order_number %>
             <% end %></td>
         <td><%= reception.quantity %></td>
         <td><%= reception.description %></td>

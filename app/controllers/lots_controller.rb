@@ -73,7 +73,8 @@ class LotsController < ApplicationController
       if @lot.save
         ### make sure to put error checks so you can't receive more than was ordered or get a negative number
         @po = PurchaseOrder.find(@lot.purchase_order_id)
-
+        @lot.received_qty = 0
+        @lot.save
         if params["full_po_checkbox"]["full_po_qty"] == 1
           @lot.received_qty = @po.quantities.find_by_item_id(@lot.item_id).amount
           @lot.inventory_qty = @lot.received_qty
