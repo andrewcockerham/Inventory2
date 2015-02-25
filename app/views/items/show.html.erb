@@ -1,24 +1,19 @@
-<p id="notice"><%= notice %></p>
-
+<!-- <p id="notice"><%# notice %></p> -->
 <p>
-  <strong>Part number:</strong>
-  <%= @item.part_number %>
+  <strong>Name and number:</strong>
+  <%= @item.name_and_number %>
 </p>
   <strong>Revision:</strong>
   <%= @item.revision %>
 <p>
- <p>
-  <strong>Current Rev?</strong>
-  <% if @item.current_rev %>
-    <%= "Yes" %>
-    <% else %>
-    <%= "No" %>
+  <!-- <strong>Current Rev?</strong> -->
+  <%# if @item.current_rev %>
+    <%# "Yes" %>
+    <%# else %>
+    <%# "No" %>
     <!-- < false %> -->
-  <% end %>
- </p>
-  <strong>Name:</strong>
-  <%= @item.name %>
-</p>
+  <%# end %>
+<p>
   <strong>Supplier:</strong>
   <% @item.suppliers.each do |supplier| %>
     <%= supplier.name %>
@@ -44,9 +39,13 @@
   <%= @item.ncmr_qty %>
 </p>
 
+
+
 <p>
-  <strong>Name and number:</strong>
-  <%= @item.name_and_number %>
+  <strong>Lots:</strong>
+  <% @item.lots.each do |lot| %>
+    <%= lot.number %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_item_path(@item) %> |
