@@ -137,7 +137,8 @@ class LotsController < ApplicationController
         ### from 'pull' page
         if params["lot"]["build_lots_attributes"] #["0"]["pull_quantity"]
           # line 139 is a bug b/c second time you pull, it will still subtract the pulled amount from the first pull
-          @lot.inventory_qty -= params["lot"]["build_lots_attributes"]["0"]["pull_quantity"].to_i
+          @lot.inventory_qty -= params["lot"]["build_lots_attributes"][(params["lot"]["build_lots_attributes"].length - 1).to_s]["pull_quantity"].to_i
+          # @lot.inventory_qty -= params["lot"]["build_lots_attributes"]["0"]["pull_quantity"].to_i
           @lot.save
           @item = Item.find(@lot.item_id)
           @item.stock_qty -= params["lot"]["build_lots_attributes"]["0"]["pull_quantity"].to_i
