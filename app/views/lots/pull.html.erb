@@ -1,7 +1,7 @@
 
 <div class='well'>
   <%= simple_form_for(@lot) do |f| %>
-  
+
   <strong>Lot Number:</strong>
   <%= @lot.number %>
 
@@ -12,7 +12,7 @@
     <%= @lot.inventory_qty %>
 
   <div id='items'>
-    <%= f.simple_fields_for :build_lots do |build_lot| %>
+    <%= f.simple_fields_for :build_lots.order(id: :desc) do |build_lot| %>
       <%= render 'build_lot_fields', :f => build_lot %>
     <% end %>
   </div>

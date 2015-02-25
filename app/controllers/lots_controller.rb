@@ -28,7 +28,8 @@ class LotsController < ApplicationController
 
   def pull
     @lot = Lot.find(params[:id])
-    @lot.build_lots.build.order(id: :desc)
+    @lot.build_lots.build
+    #.order(id: :desc)
       ### want to use the new created .build one, not show the old one
   end
 
