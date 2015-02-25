@@ -143,7 +143,7 @@ class LotsController < ApplicationController
           @item.save
         end
         p "employee_id"
-        p params["lot"]["build_lots_attributes"]["employee_id"]
+        p params["lot"]["build_lots_attributes"]#["employee_id"]
 
         format.html { redirect_to @lot, notice: 'Lot was successfully updated.' }
         format.json { head :no_content }
