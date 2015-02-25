@@ -1,5 +1,6 @@
 Inventory2::Application.routes.draw do
 
+  devise_for :employees
   resources :my_builds
 
   resources :receptions
