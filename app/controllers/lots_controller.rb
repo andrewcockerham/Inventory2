@@ -144,7 +144,8 @@ class LotsController < ApplicationController
         end
         p "employee_id"
         p params["lot"]["build_lots_attributes"]#["employee_id"]
-        p params["lot"]["build_lots_attributes"].first
+        p params["lot"]["build_lots_attributes"].last
+        p params["lot"]["build_lots_attributes"].length
 
         format.html { redirect_to @lot, notice: 'Lot was successfully updated.' }
         format.json { head :no_content }
