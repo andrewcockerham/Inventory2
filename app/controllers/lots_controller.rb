@@ -28,7 +28,7 @@ class LotsController < ApplicationController
 
   def pull
     @lot = Lot.find(params[:id])
-    @lot.build_lots.build
+    @lot.build_lots.build.order(id: :desc)
       ### want to use the new created .build one, not show the old one
   end
 
@@ -142,21 +142,11 @@ class LotsController < ApplicationController
           @item.stock_qty -= params["lot"]["build_lots_attributes"]["0"]["pull_quantity"].to_i
           @item.save
         end
-        # p "employee_id"
-        # p params["lot"]["build_lots_attributes"]#["employee_id"]
-        # # p params["lot"]["build_lots_attributes"].last
-        # # p params["lot"]["build_lots_attributes"].length
-        # p params["lot"]["build_lots_attributes"][(params["lot"]["build_lots_attributes"].length - 1).to_s]["employee_id"]
-        # # p @lot.build_lots.last
-        # @lot.build_lots.last.employee_id = params["lot"]["build_lots_attributes"][(params["lot"]["build_lots_attributes"].length - 1).to_s]["employee_id"].to_i
-        # p @lot.build_lots.last.employee_id
 
         buildLotX = @lot.build_lots.last
-        p buildLotX
         buildLotX.employee_id = params["lot"]["build_lots_attributes"][(params["lot"]["build_lots_attributes"].length - 1).to_s]["employee_id"].to_i
         buildLotX.pull_date = Date.today
         buildLotX.save
-        p buildLotX
 
         format.html { redirect_to @lot, notice: 'Lot was successfully updated.' }
         format.json { head :no_content }
