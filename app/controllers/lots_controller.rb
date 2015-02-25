@@ -135,12 +135,15 @@ class LotsController < ApplicationController
 
         ### from 'pull' page
         if params["lot"]["build_lots_attributes"] #["0"]["pull_quantity"]
+          # line 139 is a bug b/c second time you pull, it will still subtract the pulled amount from the first pull
           @lot.inventory_qty -= params["lot"]["build_lots_attributes"]["0"]["pull_quantity"].to_i
           @lot.save
           @item = Item.find(@lot.item_id)
           @item.stock_qty -= params["lot"]["build_lots_attributes"]["0"]["pull_quantity"].to_i
           @item.save
         end
+        p "employee_id"
+        p params["lot"]["build_lots_attributes"]["employee_id"]
 
         format.html { redirect_to @lot, notice: 'Lot was successfully updated.' }
         format.json { head :no_content }
