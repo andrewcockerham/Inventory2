@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-<%=  render 'layouts/header' %>
-<%= yield %>
-
+	<%=  render 'layouts/header' %>
+	<% flash.each do |name, msg| %>
+	  <%= content_tag(:div, msg, class: "alert alert-info") %>
+	<% end %>
+	<%= yield %>
 </body>
 </html>

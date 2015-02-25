@@ -4,7 +4,7 @@ class LotsController < ApplicationController
   ## TO DO:
   ## make inventory qty just sum of all lots?? instead of value of item?
 
-  ### my custon methods
+  ### START CUSTOM METHODS
   # GET /inspection
   def inspection
     @inspection_queue = Lot.where("status = ?", "Inspection")
@@ -32,11 +32,10 @@ class LotsController < ApplicationController
   def pull
     @lot = Lot.find(params[:id])
     @lot.build_lots.build
-    #.order(id: :desc)
       ### want to use the new created .build one, not show the old one
   end
 
-  ### END MY CUSTOM METHODS
+  ### END CUSTOM METHODS
 
   # GET /lots
   # GET /lots.json
@@ -144,12 +143,12 @@ class LotsController < ApplicationController
           @item = Item.find(@lot.item_id)
           @item.stock_qty -= params["lot"]["build_lots_attributes"][(params["lot"]["build_lots_attributes"].length - 1).to_s]["pull_quantity"].to_i
           @item.save
-        end
 
-        buildLotX = @lot.build_lots.last
-        buildLotX.employee_id = params["lot"]["build_lots_attributes"][(params["lot"]["build_lots_attributes"].length - 1).to_s]["employee_id"].to_i
-        buildLotX.pull_date = Date.today
-        buildLotX.save
+          buildLotX = @lot.build_lots.last
+          buildLotX.employee_id = params["lot"]["build_lots_attributes"][(params["lot"]["build_lots_attributes"].length - 1).to_s]["employee_id"].to_i
+          buildLotX.pull_date = Date.today
+          buildLotX.save
+        end
 
         format.html { redirect_to @lot, notice: 'Lot was successfully updated.' }
         format.json { head :no_content }
