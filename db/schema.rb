@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227153629) do
+ActiveRecord::Schema.define(version: 20150227194614) do
 
   create_table "build_lots", force: true do |t|
     t.integer  "my_build_id"
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 20150227153629) do
     t.datetime "updated_at"
     t.date     "estimated_arrival"
     t.integer  "supplier_id"
-    t.string   "status"
+    t.boolean  "status",                limit: 255
   end
 
   add_index "purchase_orders", ["estimated_arrival"], name: "index_purchase_orders_on_estimated_arrival"
