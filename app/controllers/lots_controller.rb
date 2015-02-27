@@ -8,7 +8,7 @@ class LotsController < ApplicationController
   # GET /inspection
   def inspection
     @inspection_queue = Lot.where("status = ?", "Inspection")
-    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Used', 4]]
+    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Exhausted', 4]]
   end
 
   # def inspection_post ??
@@ -17,7 +17,7 @@ class LotsController < ApplicationController
 
   def release
     @lot = Lot.find(params[:id])
-    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Used', 4]]
+    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Exhausted', 4]]
   end
 
   def receiving_log
@@ -58,20 +58,20 @@ class LotsController < ApplicationController
     else
       @lot.number = 500
     end
-    # @status_list = %w[Inspection NCMR Inventory Used]
-    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Used', 4]]
+    # @status_list = %w[Inspection NCMR Inventory Exhausted]
+    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Exhausted', 4]]
   end
 
   # GET /lots/1/edit
   def edit
-    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Used', 4]]
+    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Exhausted', 4]]
   end
 
   # POST /lots
   # POST /lots.json
   def create
     @lot = Lot.new(lot_params)
-    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Used', 4]]
+    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Exhausted', 4]]
     @lot.inventory_qty = 0
     respond_to do |format|
       if @lot.save
@@ -86,9 +86,17 @@ class LotsController < ApplicationController
           @lot.save
         end
 
+        ## if 'cleaned' checkbox checked, set cleaned=true and set date_cleaned=today
+        p params["lot"]["cleaned"]
+        if params["lot"]["cleaned"] == 1
+          @lot.cleaned = true
+          @lot.date_cleaned = Date.today
+          @lot.save
+        end
+
         # @po.quantities.find_by_item_id(@lot.item_id).amount -= @lot.received_qty
         ### THERE IS A BUG HERE IF A PO HAS MULTIPLE ITEMS
-        @po.status = "Received" if @po.quantities.find_by_item_id(@lot.item_id).amount == @lot.received_qty && @po.quantities.length == 1
+        @po.status = true if @po.quantities.find_by_item_id(@lot.item_id).amount == @lot.received_qty && @po.quantities.length == 1
         puts 'po status'
         @po.save
 
@@ -139,7 +147,11 @@ class LotsController < ApplicationController
         ### from 'pull' page
         if params["lot"]["build_lots_attributes"] #["0"]["pull_quantity"]
           @lot.inventory_qty -= params["lot"]["build_lots_attributes"][(params["lot"]["build_lots_attributes"].length - 1).to_s]["pull_quantity"].to_i
-          @lot.save
+          ## if lot is exhausted, change status to exhausted
+          if @lot.inventory_qty == 0
+            @lot.status = "Exhausted"
+          end
+          # @lot.save
           @item = Item.find(@lot.item_id)
           @item.stock_qty -= params["lot"]["build_lots_attributes"][(params["lot"]["build_lots_attributes"].length - 1).to_s]["pull_quantity"].to_i
           @item.save
@@ -149,6 +161,14 @@ class LotsController < ApplicationController
           buildLotX.pull_date = Date.today
           buildLotX.save
         end
+
+        # calculate rejected qty as received qty - accepted qty
+        if @lot.accepted_qty > 0
+          @lot.rejected_qty = @lot.received_qty - @lot.accepted_qty
+        end
+
+        # save lot after updating all relevant fields
+        @lot.save
 
         format.html { redirect_to @lot, notice: 'Lot was successfully updated.' }
         format.json { head :no_content }
@@ -179,7 +199,7 @@ class LotsController < ApplicationController
     def lot_params
       params.require(:lot).permit(:number, :received_qty, :inventory_qty, :item_id, :cleaned, :status,
                                   :purchase_order_id, :received_date, :full_po_qty, :accepted_qty, :rejected_qty, :date_cleaned,
-                                  :build_lots_attributes => [:pull_quantity, :id, :my_build_id, :lot_id, :_destroy],
+                                  :build_lots_attributes => [:pull_quantity, :id, :my_build_id, :lot_id, :employee_id, :_destroy],
                                   :build_lot_ids => [])
     end
 end

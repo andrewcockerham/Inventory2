@@ -28,12 +28,13 @@
 </div>
 <div>
 	<%= simple_form_for(@lot) do |f| %>
-	
 		<%= f.input :received_qty, as: :string %>
 		<%= f.input :accepted_qty, as: :string %>
-		<%= f.input :rejected_qty, as: :string %>
+		<%# f.input :rejected_qty, as: :string %>
 		<%= f.label 'Status' %>
 		<%= f.select :status, @status_list.map { |value| [ value, value] } %>
+		input NCMR number and setup has_many/belongs_to b/w lots and NCMR
+		make checkbox for either inventory or NCMR?
 		<%= f.submit 'Release Lot', class: 'btn btn-primary' %>
 	<% end %>
 </div>

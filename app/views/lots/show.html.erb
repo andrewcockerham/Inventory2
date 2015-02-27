@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Lot Number:</strong>
   <%= @lot.number %>
@@ -31,11 +29,9 @@
 <% if @lot.cleaned %>
 <p>
   <strong>Date Cleaned:</strong>
-    <%= @lot.date_cleaned.to_formatted_s(:long) %>
+    <%= @lot.date_cleaned.to_formatted_s(:long)  %>
 </p>
 <% end %>
-
-
 <p>
   <strong>Cleaned:</strong>
   <%= @lot.cleaned %>

@@ -1,6 +1,9 @@
 class PurchaseOrdersController < ApplicationController
   before_action :set_purchase_order, only: [:show, :edit, :update, :destroy]
 
+  ### TO DO: fix index page to show if multiple POs exist and pending for one item
+  ### TO DO: what if receive more than was ordered on PO?
+
   #### my custom methods ####
   # def receiving
   #   @purchase_orders = PurchaseOrder.order("purchase_order_number desc")
@@ -30,7 +33,7 @@ class PurchaseOrdersController < ApplicationController
   # GET /purchase_orders/new
   def new
     @suppliers = Supplier.all
-    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Used', 4]]
+    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Exhausted', 4]]
 
     @purchase_order = PurchaseOrder.new
     @todays_date = Date.today.to_s.delete("-")

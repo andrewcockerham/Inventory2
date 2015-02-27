@@ -50,9 +50,14 @@
   <strong>Estimated Arrival:</strong>
   <%= @purchase_order.estimated_arrival %>
 </p>
+(add days till arrival)
 <p>
   <strong>Status:</strong>
-  <%= @purchase_order.status %>
+  <% if @purchase_order.status %>
+    <%= "Received" %>
+   <% else %>
+    <%= "Pending" %>
+  <% end %>
 </p>
 <p>
 <!-- TO DO: update for when a PO is received in multiple lots, this date should

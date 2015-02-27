@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227194614) do
+ActiveRecord::Schema.define(version: 20150227215430) do
 
   create_table "build_lots", force: true do |t|
     t.integer  "my_build_id"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20150227194614) do
 
   add_index "build_lots", ["lot_id"], name: "index_build_lots_on_lot_id"
   add_index "build_lots", ["my_build_id"], name: "index_build_lots_on_my_build_id"
+
+  create_table "deficiencies", force: true do |t|
+    t.integer  "lot_id"
+    t.integer  "ncmr_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "deficiencies", ["lot_id"], name: "index_deficiencies_on_lot_id"
+  add_index "deficiencies", ["ncmr_id"], name: "index_deficiencies_on_ncmr_id"
 
   create_table "employees", force: true do |t|
     t.string   "first_name"
@@ -105,6 +115,14 @@ ActiveRecord::Schema.define(version: 20150227194614) do
   add_index "my_builds", ["current"], name: "index_my_builds_on_current"
   add_index "my_builds", ["scrap_qty"], name: "index_my_builds_on_scrap_qty"
   add_index "my_builds", ["start_qty"], name: "index_my_builds_on_start_qty"
+
+  create_table "ncmrs", force: true do |t|
+    t.string   "number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ncmrs", ["number"], name: "index_ncmrs_on_number", unique: true
 
   create_table "orders", force: true do |t|
     t.integer  "purchase_order_id"

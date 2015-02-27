@@ -20,7 +20,7 @@
 					<td><!-- < f.collection_select :status, @status_list.map { |value| [ value, value] }, @status_list.key, @status_list.value, prompt: 'Choose' %> -->
 					<!-- td>< lot.status %></td> -->  <!-- make this a dropdown menu -->
 					<%= f.select :status, @status_list.map { |value| [ value, value] } %></td>
-					<td><%= link_to 'Release Lot', release_path(lot.id), class: 'btn btn-primary' %></td>
+					<td><%= link_to 'Inspection Results', release_path(lot.id), class: 'btn btn-primary' %></td>
 					<%= hidden_field_tag 'complete_inspection', 'true' %>
 					<!-- PurchaseOrder.order(:purchase_order_number), :id, :purchase_order_number, :prompt => 'Choose an existing PurchaseOrder'%><br> -->
 					<td><%= f.submit "Update", class: 'btn btn-primary btn-sm' %></td>

@@ -37,7 +37,7 @@ class ReceptionsController < ApplicationController
           @purchase_order.quantities[0].amount_remaining -= @reception.quantity
           @purchase_order.quantities[0].amount_received += @reception.quantity
           if @purchase_order.quantities[0].amount_received >= @purchase_order.quantities[0].amount
-            @purchase_order.status = "Received"
+            @purchase_order.status = true
           end
           @purchase_order.save
         end

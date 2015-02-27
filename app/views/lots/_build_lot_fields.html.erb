@@ -1,10 +1,12 @@
-<div class='nested-fields build-lot-fields'> 
+<div class='nested-fields build-lot-fields'>
 	<div class='well'>
 	<div id='item_from_list'>
 		<%= f.input :my_build_id, collection: MyBuild.order(:start_date), label_method: :description, value_method: :id, :prompt => 'Choose a Build', selected: MyBuild.where(current: true), input_html: { id: 'build_select'} %>
 		<!-- ADD 'R&D' AS AN OPTION TO PULL TO, OR SCRAP, ETC -->
 		<%= f.input :pull_quantity, label: 'Pull Quantity', as: :string %>
-		<%= f.label 'Date' %><%= Date.today %>
+		<%= f.label 'Date' %><%= Date.today %><br>
+		<!-- TO DO: autofill name with curretn signed in employee -->
+		(autofill with signed in employee)
 		<%= f.input :employee_id, collection: Employee.order(:first_name), label_method: :first_name, value_method: :id, prompt: "Choose your name" %>
 <!-- 		< link_to_remove_association "remove item", f, class: 'btn btn-primary' %> -->
 	</div>

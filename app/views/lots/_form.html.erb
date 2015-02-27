@@ -32,6 +32,7 @@
      <!-- end %>  -->
     <!-- < f.input :item_id %> -->
     <%= f.input :cleaned %>
+    <%= f.input :date_cleaned %> <!-- TO DO: only let this show if 'cleaned' is checked -->
     <!-- < f.collection_select :status, @status_list,  %> -->
     <!-- < select_tag "status", options_for_select(@status_list) %> -->
     <b><%= f.label :status, "Status" %></b>

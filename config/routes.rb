@@ -1,5 +1,7 @@
 Inventory2::Application.routes.draw do
 
+  resources :ncmrs
+
   devise_for :employees
   resources :my_builds
 

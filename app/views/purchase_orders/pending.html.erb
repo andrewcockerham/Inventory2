@@ -1,5 +1,6 @@
-<h1>Purchase Orders Log</h1> <%= link_to 'All POs', purchase_orders_path, class: 'btn btn-primary', id: 'all_po_button_id' %>
-
+<h1>Purchase Orders Log</h1>
+<%= link_to 'All POs', purchase_orders_path, class: 'btn btn-primary', id: 'all_po_button_id' %>
+<%= link_to 'New Purchase order', new_purchase_order_path, class: 'btn btn-primary' %><br><br>
 <table>
   <thead>
     <tr>
@@ -23,7 +24,7 @@
         <!-- <td>< purchase_order.date %></td> -->
         <td><%= link_to purchase_order.purchase_order_number, purchase_order %></td>
         <td><% purchase_order.items.each do |item| %>
-          <%= link_to item.name_and_number, item %> Rev 
+          <%= link_to item.name_and_number, item %> Rev
           <%= item.revision %><br>
         <% end %></td>
         <td><% purchase_order.items.each do |item| %>
@@ -34,7 +35,11 @@
         <td><%= purchase_order.description %></td>
         <td><%= number_to_currency(purchase_order.cost) %></td>
         <td><%= purchase_order.estimated_arrival %></td>
-        <td><%= purchase_order.status %>
+        <td><% if purchase_order.status %>
+              <%= "Received" %>
+            <% else %>
+              <%= "Pending" %>
+            <% end %></td>
         <td><% if purchase_order.supplier %>
           <%= purchase_order.supplier.name %> <% end %></td>
 <!--         <td>< link_to 'Edit', edit_purchase_order_path(purchase_order) %></td> -->
@@ -43,7 +48,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Purchase order', new_purchase_order_path, class: 'btn btn-primary' %>

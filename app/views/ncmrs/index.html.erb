@@ -1,0 +1,27 @@
+<h1>Listing ncmrs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ncmrs.each do |ncmr| %>
+      <tr>
+        <td><%= ncmr.number %></td>
+        <td><%= link_to 'Show', ncmr %></td>
+        <td><%= link_to 'Edit', edit_ncmr_path(ncmr) %></td>
+        <td><%= link_to 'Destroy', ncmr, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ncmr', new_ncmr_path %>
