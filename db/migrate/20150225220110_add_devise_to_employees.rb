@@ -1,4 +1,8 @@
 class AddDeviseToEmployees < ActiveRecord::Migration
+  def change
+    remove_column :employees, :email
+  end
+
   def self.up
     change_table(:employees) do |t|
       ## Database authenticatable

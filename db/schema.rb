@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328112605) do
+ActiveRecord::Schema.define(version: 20150227153629) do
 
   create_table "build_lots", force: true do |t|
     t.integer  "my_build_id"
@@ -29,12 +29,10 @@ ActiveRecord::Schema.define(version: 20140328112605) do
   create_table "employees", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "employees", ["email"], name: "index_employees_on_email"
   add_index "employees", ["first_name"], name: "index_employees_on_first_name"
   add_index "employees", ["last_name"], name: "index_employees_on_last_name"
 
@@ -69,6 +67,7 @@ ActiveRecord::Schema.define(version: 20140328112605) do
     t.integer  "accepted_qty"
     t.integer  "rejected_qty"
     t.date     "date_cleaned"
+    t.boolean  "ncmr"
   end
 
   add_index "lots", ["accepted_qty"], name: "index_lots_on_accepted_qty"
