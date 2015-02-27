@@ -8,8 +8,6 @@
       <th>Quantity</th>
       <th>Description</th>
       <th>Remaining on PO</th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -23,7 +21,7 @@
             <% end %></td>
         <td><%= reception.quantity %></td>
         <td><%= reception.description %></td>
-        <!-- <td>< purchase_order.quantitiesremaining_qty %></td> -->
+        <td><%= PurchaseOrder.find(reception.purchase_order_id).quantities[0].amount_remaining %></td>
         <td><%= link_to 'Show', reception %></td>
         <td><%= link_to 'Edit', edit_reception_path(reception) %></td>
         <td><%= link_to 'Destroy', reception, method: :delete, data: { confirm: 'Are you sure?' } %></td>

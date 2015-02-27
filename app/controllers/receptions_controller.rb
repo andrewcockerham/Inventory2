@@ -1,6 +1,9 @@
 class ReceptionsController < ApplicationController
   before_action :set_reception, only: [:show, :edit, :update, :destroy]
 
+  ## TO DO: figure out how to handle receiving new lot, is it under 'reciving'
+  ##        and 'receptions', or under 'lots'?? do we need both?
+
   # GET /receptions
   # GET /receptions.json
   def index
@@ -33,8 +36,24 @@ class ReceptionsController < ApplicationController
         if @purchase_order.quantities[0].amount_remaining
           @purchase_order.quantities[0].amount_remaining -= @reception.quantity
           @purchase_order.quantities[0].amount_received += @reception.quantity
+          if @purchase_order.quantities[0].amount_received >= @purchase_order.quantities[0].amount
+            @purchase_order.status = "Received"
+          end
           @purchase_order.save
         end
+        ## can receive something that doesn't have PO?
+        ## TO DO: on new reception, choose po, then show list of items on that PO
+        ## Update Item quantity "in inspection"
+        i = Item.find(@purchase_order.quantities[0].item_id)
+        i.in_inspection_qty += @reception.quantity
+        ## Update Item "on order qty"
+        i.on_order_qty -= @reception.quantity
+        i.save
+
+        p "update item in_inspection_qty"
+        # p @purchase_order.quantities[0].amount_received
+        p @reception.quantity
+
         format.html { redirect_to @reception, notice: 'Reception was successfully created.' }
         format.json { render action: 'show', status: :created, location: @reception }
       else

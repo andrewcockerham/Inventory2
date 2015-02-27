@@ -24,7 +24,7 @@
         <!-- <td>< purchase_order.date %></td> -->
         <td><%= link_to purchase_order.purchase_order_number, purchase_order %></td>
         <td><% purchase_order.items.each do |item| %>
-          <%= link_to item.name_and_number, item %> Rev 
+          <%= link_to item.name_and_number, item %> Rev
           <%= item.revision %><br>
         <% end %></td>
         <td><% purchase_order.items.each do |item| %>

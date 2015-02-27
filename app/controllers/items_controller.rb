@@ -1,11 +1,11 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_employee!
 
 ###### my custom methods
   # show DMR
   def dmr
-    
+
   end
 
   # show all purchase orders of an item

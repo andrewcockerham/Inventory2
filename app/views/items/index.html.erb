@@ -11,7 +11,6 @@
       <th>Expected Arrival Date</th>
       <th>In inspection qty</th>
       <th>Inventory qty</th>
-      <th>Ncmr qty</th>
       <!-- <th>Name and number</th> -->
     </tr>
   </thead>
@@ -35,7 +34,6 @@
         </td>
         <td><%= item.in_inspection_qty %></td>
         <td><%= item.stock_qty %></td>
-        <td><%= item.ncmr_qty %></td>
         <!-- <td>< item.name_and_number %></td> -->
         <!-- <td>< link_to 'Edit', edit_item_path(item) %></td> -->
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>

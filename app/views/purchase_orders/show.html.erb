@@ -54,6 +54,12 @@
   <strong>Status:</strong>
   <%= @purchase_order.status %>
 </p>
+<p>
+<!-- TO DO: update for when a PO is received in multiple lots, this date should
+            either be most recent received, or when PO is complete -->
+  <strong>Date Received:</strong>
+  <%= Reception.where(purchase_order_id: @purchase_order.id)[0].date if Reception.where(purchase_order_id: @purchase_order.id)[0] %>
+</p>
 </div>
 <%= link_to 'Edit', edit_purchase_order_path(@purchase_order) %> |
 <%= link_to 'Back', purchase_orders_path %>

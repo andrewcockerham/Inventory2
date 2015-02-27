@@ -42,6 +42,9 @@ Inventory2::Application.routes.draw do
   ### DMR path
   get 'dmr' => 'items#dmr', as: :dmr
 
+  ### RECEIVING - COMING SOON (CAN INCLUDE AGAIN LATER)
+  get 'coming_soon' => 'application#comingSoon'
+
   # get 'receiving_log' => 'lots#receiving_log', as: :receiving_log
 
   # receiving log

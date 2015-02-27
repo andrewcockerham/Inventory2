@@ -15,7 +15,7 @@
     <%= f.input :date %>
   </div>
   <strong>Purchase Order:</strong>
-   <%= f.collection_select :purchase_order_id, PurchaseOrder.order(:purchase_order_number), :id, :purchase_order_number, :prompt => 'Choose an existing PurchaseOrder'%><br>
+   <%= f.collection_select :purchase_order_id, PurchaseOrder.where(status: "Pending").order(:purchase_order_number), :id, :purchase_order_number, :prompt => 'Choose an existing PurchaseOrder'%><br>
   <div class="field">
     <%= f.label :quantity %><br>
     <%= f.number_field :quantity %>

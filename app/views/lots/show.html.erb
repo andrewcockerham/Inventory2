@@ -4,7 +4,14 @@
   <strong>Lot Number:</strong>
   <%= @lot.number %>
 </p>
-
+<p>
+  <strong>Item:</strong>
+  <%= Item.find(@lot.item_id).number_rev_name %>
+</p>
+<p>
+  <strong>Supplier:</strong>
+  <%= @lot.item.suppliers.first.name %>
+</p>
 <p>
   <strong>Received Quantity:</strong>
   <%= @lot.received_qty %>
@@ -24,13 +31,10 @@
 <% if @lot.cleaned %>
 <p>
   <strong>Date Cleaned:</strong>
-    <%# @lot.date_cleaned.to_formatted_s(:long) %>
+    <%= @lot.date_cleaned.to_formatted_s(:long) %>
 </p>
 <% end %>
-<p>
-  <strong>Item:</strong>
-  <%= Item.find(@lot.item_id).number_rev_name %>
-</p>
+
 
 <p>
   <strong>Cleaned:</strong>

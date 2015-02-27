@@ -8,14 +8,15 @@ class PurchaseOrdersController < ApplicationController
 
   def pending
     # @purchase_orders = PurchaseOrder.where(status: "Pending") ## works on sql3 but not on pg
-    @purchase_orders = PurchaseOrder.where(status: false)
+    @purchase_orders = PurchaseOrder.where(status: "Pending").order("estimated_arrival desc")
+    # @purchase_orders = PurchaseOrder.where(status: false)
   end
 
   # GET /purchase_orders
   # GET /purchase_orders.json
   def index
     @purchase_orders = PurchaseOrder.order("purchase_order_number desc")
-    # if purchase_order.estimated_arrival <= Date.today %> Overdue 
+    # if purchase_order.estimated_arrival <= Date.today %> Overdue
     # < else %> Pending < end %></td>
     # Recieved
   end
@@ -24,7 +25,7 @@ class PurchaseOrdersController < ApplicationController
   # GET /purchase_orders/1.json
   def show
     @q = Quantity.all.find_all_by_purchase_order_id(@purchase_order.id)
-    # @q = Quantity.where(@purchase_order.id).all 
+    # @q = Quantity.where(@purchase_order.id).all
   end
 
   # GET /purchase_orders/new
@@ -50,8 +51,6 @@ class PurchaseOrdersController < ApplicationController
     # create list of items for quantites partial
     @item_list = Item.all.order(:part_number)
     # @item_list = Item.where('student_advisor' => true)
-
-    @purchase_order.status = false
   end
 
   # GET /purchase_orders/1/edit
@@ -63,12 +62,12 @@ class PurchaseOrdersController < ApplicationController
   def create
     @purchase_order = PurchaseOrder.new(purchase_order_params)
     # @purchase_order.quantities.build for each item in params?
-    @purchase_order.status = false
+    @purchase_order.status = "Pending"
 
     respond_to do |format|
       if @purchase_order.save
         @purchase_order.quantities.each do |quantity|
-          ## fix amount fields 
+          ## fix amount fields
           quantity.amount_received = 0
           quantity.amount_remaining = quantity.amount
           quantity.save
@@ -96,7 +95,7 @@ class PurchaseOrdersController < ApplicationController
     respond_to do |format|
       if @purchase_order.update(purchase_order_params)
         @purchase_order.quantities.each do |quantity|
-          ## fix amount fields 
+          ## fix amount fields
           quantity.amount_received = 0
           quantity.amount_remaining = quantity.amount
           quantity.save
@@ -143,7 +142,7 @@ class PurchaseOrdersController < ApplicationController
                                              :supplier_attributes => [:id, :supplier_id],
                                              :items => [:id, :item_id],
                                              :item_ids => [:id, :item_id], :quantity => [],
-                                             :item_attributes => [:id, :item_id], 
+                                             :item_attributes => [:id, :item_id],
                                              :quantities_attributes => [:amount, :id, :item_id, :_destroy],
                                              :quantity_ids => [],
                                              :suppliers => [:id, :supplier_id],
