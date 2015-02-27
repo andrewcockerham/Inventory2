@@ -1,7 +1,7 @@
 class AddDeviseToEmployees < ActiveRecord::Migration
-  def change
-    remove_column :employees, :email
-  end
+  # def change
+  #   remove_column :employees, :email
+  # end
 
   def self.up
     change_table(:employees) do |t|
@@ -48,6 +48,6 @@ class AddDeviseToEmployees < ActiveRecord::Migration
   def self.down
     # By default, we don't want to make any assumption about how to roll back a migration when your
     # model already existed. Please edit below which fields you would like to remove in this migration.
-    raise ActiveRecord::IrreversibleMigration
+    # raise ActiveRecord::IrreversibleMigration
   end
 end
