@@ -13,10 +13,20 @@
 
   <div id='items'>
     <%# f.simple_fields_for :build_lots.reverse_each { |e|  } do |build_lot| %>
-    <%= f.simple_fields_for :build_lots do |build_lot| %>
+    <%= f.simple_fields_for :build_lots, @reverseBuildLots do |build_lot| %>
+     <!-- f.simple_fields_for :build_lots,  do |build_lot|  -->
       <%# p build_lot %>
       <%= render 'build_lot_fields', :f => build_lot %>
     <% end %>
+  </div>
+
+<!-- TO DO: render other pulls not as fields -->
+<!-- TO TO: query database once in controller, not for each output below -->
+  <div class='well'>
+    <strong>Issued To: <%= MyBuild.where(id: @lot.build_lots[0].my_build_id)[0].description %></strong>
+    <strong>Pull Quantity: <%= MyBuild.where(id: @lot.build_lots[0].my_build_id)[0].pull_quantity %></strong>
+    <strong>Date: <%= MyBuild.where(id: @lot.build_lots[0].my_build_id)[0].pull_date %></strong>
+    <strong>Employee: <%= Employee.where(id: MyBuild.where(id: @lot.build_lots[0].my_build_id)[0].employee_id)[0].name %></strong>
   </div>
 
   <div class="actions">

@@ -47,7 +47,9 @@
         <td><% if purchase_order.supplier %>
           <%= purchase_order.supplier.name %> <% end %></td>
 <!--         <td>< link_to 'Edit', edit_purchase_order_path(purchase_order) %></td> -->
-        <td><%= link_to 'Destroy', purchase_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><% if employee_signed_in? %>
+          <%= link_to 'Destroy', purchase_order, method: :delete, data: { confirm: 'Are you sure?' } if current_employee.is_admin %>
+          <% end %></td>
       </tr>
     <% end %>
   </tbody>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150227215430) do
+ActiveRecord::Schema.define(version: 20150324201839) do
 
   create_table "build_lots", force: true do |t|
     t.integer  "my_build_id"
@@ -51,10 +51,12 @@ ActiveRecord::Schema.define(version: 20150227215430) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.boolean  "is_admin"
   end
 
   add_index "employees", ["email"], name: "index_employees_on_email", unique: true
   add_index "employees", ["first_name"], name: "index_employees_on_first_name"
+  add_index "employees", ["is_admin"], name: "index_employees_on_is_admin"
   add_index "employees", ["last_name"], name: "index_employees_on_last_name"
   add_index "employees", ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
 

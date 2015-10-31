@@ -32,6 +32,7 @@ class LotsController < ApplicationController
   def pull
     @lot = Lot.find(params[:id])
     @lot.build_lots.build
+    @reverseBuildLots = @lot.build_lots.reverse
       ### want to use the new created .build one, not show the old one
   end
 
@@ -77,10 +78,12 @@ class LotsController < ApplicationController
       if @lot.save
         ### make sure to put error checks so you can't receive more than was ordered or get a negative number
         @po = PurchaseOrder.find(@lot.purchase_order_id)
-        # @lot.received_qty == params 0
         @lot.accepted_qty = 0
+        @lot.received_qty = 0
         @lot.save
-        if params["full_po_checkbox"]["full_po_qty"] == 1
+        p params
+        if params["full_po_checkbox"]["full_po_qty"] == "1"
+          @lot.full_po_qty = true
           @lot.received_qty = @po.quantities.find_by_item_id(@lot.item_id).amount
           @lot.inventory_qty = @lot.received_qty
           @lot.save
@@ -95,9 +98,10 @@ class LotsController < ApplicationController
         end
 
         # @po.quantities.find_by_item_id(@lot.item_id).amount -= @lot.received_qty
-        ### THERE IS A BUG HERE IF A PO HAS MULTIPLE ITEMS
+        ### TO DO: THERE IS A BUG HERE IF A PO HAS MULTIPLE ITEMS
         @po.status = true if @po.quantities.find_by_item_id(@lot.item_id).amount == @lot.received_qty && @po.quantities.length == 1
-        puts 'po status'
+        p 'po status'
+        p @po.status
         @po.save
 
         @item = Item.find(@lot.item_id)

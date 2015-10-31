@@ -21,9 +21,12 @@
       <!-- < if PO.amount_received = 0 %> -->
         <%= f.label "","Full PO Qty Received?" %>
         <%= check_box 'full_po_checkbox', :full_po_qty %>
-      <!-- < f.input :full_po_qty %> -->
+      <%#= f.input :full_po_qty, label: 'Full PO Qty Received?' %>
       <!-- Add checkbox for receive full PO - then auto fill qty -->
-      <%= f.input :received_qty, label: 'Received Qty', input_html: {id: 'received_qty'}%>
+      <div class="received_qty">
+        <%= f.input :received_qty, label: 'Received Qty' %>
+      </div>
+      <!-- , input_html: {class: 'received_qty'} -->
       <!-- display PO qty -->
     </div>
 
@@ -33,6 +36,7 @@
     <!-- < f.input :item_id %> -->
     <%= f.input :cleaned %>
     <%= f.input :date_cleaned %> <!-- TO DO: only let this show if 'cleaned' is checked -->
+    (fix that cleaning happens after inspection)
     <!-- < f.collection_select :status, @status_list,  %> -->
     <!-- < select_tag "status", options_for_select(@status_list) %> -->
     <b><%= f.label :status, "Status" %></b>
