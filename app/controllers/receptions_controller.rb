@@ -31,24 +31,24 @@ class ReceptionsController < ApplicationController
 
     respond_to do |format|
       if @reception.save
-        @purchase_order = PurchaseOrder.find(@reception.purchase_order_id)
-        # if @purchase_order.quantities.find_by_item_id()
+        @purchase_order = @reception.purchase_order
+        # TODO change [] to .first - or better pick the CORRECT quantity
         if @purchase_order.quantities[0].amount_remaining
           @purchase_order.quantities[0].amount_remaining -= @reception.quantity
           @purchase_order.quantities[0].amount_received += @reception.quantity
           if @purchase_order.quantities[0].amount_received >= @purchase_order.quantities[0].amount
             @purchase_order.status = true
           end
-          @purchase_order.save
+          @purchase_order.save ## TODO change .save to .update and replace all above lines
         end
         ## can receive something that doesn't have PO?
-        ## TO DO: on new reception, choose po, then show list of items on that PO
+        ## TODO: on new reception, choose po, then show list of items on that PO
         ## Update Item quantity "in inspection"
-        i = Item.find(@purchase_order.quantities[0].item_id)
+        i = @reception.item
         i.in_inspection_qty += @reception.quantity
         ## Update Item "on order qty"
         i.on_order_qty -= @reception.quantity
-        i.save
+        i.save # TODO replace .save with .update
 
         p "update item in_inspection_qty"
         # p @purchase_order.quantities[0].amount_received
@@ -90,11 +90,11 @@ class ReceptionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reception
-      @reception = Reception.find(params[:id])
+      @reception = Reception.find(params[:id]) # TODO change .find to .where, but first check what defualt is for Rails 4 or 5 apps
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reception_params
-      params.require(:reception).permit(:date, :quantity, :description, :purchase_order_id)
+      params.require(:reception).permit(:date, :quantity, :description, :purchase_order_id, :item_id)
     end
 end

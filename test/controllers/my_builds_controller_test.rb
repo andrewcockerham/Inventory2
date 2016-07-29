@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class MyBuildsControllerTest < ActionController::TestCase
+  # include from Devise
+  include Devise::Test::ControllerHelpers
+
   setup do
     @my_build = my_builds(:one)
   end
@@ -18,7 +21,7 @@ class MyBuildsControllerTest < ActionController::TestCase
 
   test "should create my_build" do
     assert_difference('MyBuild.count') do
-      post :create, my_build: { description: @my_build.description, qty: @my_build.qty, scrap_qty: @my_build.scrap_qty, ship_date: @my_build.ship_date, start_date: @my_build.start_date }
+      post :create, my_build: { description: @my_build.description, start_qty: @my_build.start_qty, scrap_qty: @my_build.scrap_qty, ship_date: @my_build.ship_date, start_date: @my_build.start_date }
     end
 
     assert_redirected_to my_build_path(assigns(:my_build))
@@ -35,7 +38,7 @@ class MyBuildsControllerTest < ActionController::TestCase
   end
 
   test "should update my_build" do
-    patch :update, id: @my_build, my_build: { description: @my_build.description, qty: @my_build.qty, scrap_qty: @my_build.scrap_qty, ship_date: @my_build.ship_date, start_date: @my_build.start_date }
+    patch :update, id: @my_build, my_build: { description: @my_build.description, start_qty: @my_build.start_qty, scrap_qty: @my_build.scrap_qty, ship_date: @my_build.ship_date, start_date: @my_build.start_date }
     assert_redirected_to my_build_path(assigns(:my_build))
   end
 

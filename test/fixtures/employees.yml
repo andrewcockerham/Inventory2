@@ -1,11 +1,20 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
+# employee_one:
+  first_name: Fred
+  last_name: Flintstone
+  email: fred@flintstone.com
+  is_admin: false
+  # password: 123greetings
+  encrypted_password: <%= Devise::Encryptor.digest(Employee, 'password') %>
+  # encrypted_password: <%= Employee.new.send(:password_digest, '123greetings') %>
 
 two:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
+  first_name: wilma
+  last_name: Flintstone
+  email: wilma@flintstone.com
+  is_admin: false
+  # password: 123greetings
+  # encrypted_password: <%= Employee.new.send(:password_digest, '123greetings') %>
+  encrypted_password: <%= Devise::Encryptor.digest(Employee, 'password') %>

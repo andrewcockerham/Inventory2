@@ -1,15 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  qty: 1
+  start_qty: 1
   scrap_qty: 1
   description: MyString
-  start_date: 
-  ship_date: 
+  start_date:
+  ship_date:
+  complete: false
+  current: false
 
 two:
-  qty: 1
+  start_qty: 1
   scrap_qty: 1
   description: MyString
-  start_date: 
-  ship_date: 
+  start_date:
+  ship_date:
+  complete: false
+  current: false

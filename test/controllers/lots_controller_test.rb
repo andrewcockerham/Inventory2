@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class LotsControllerTest < ActionController::TestCase
+  # include from Devise
+  include Devise::Test::ControllerHelpers
+
   setup do
     @lot = lots(:one)
   end
@@ -18,7 +21,12 @@ class LotsControllerTest < ActionController::TestCase
 
   test "should create lot" do
     assert_difference('Lot.count') do
-      post :create, lot: { cleaned: @lot.cleaned, current_qty: @lot.current_qty, initial_qty: @lot.initial_qty, item_id: @lot.item_id, number: @lot.number }
+      new_lot_number = @lot.number + 200
+      post :create, lot: { cleaned: @lot.cleaned, inventory_qty: @lot.inventory_qty, received_qty: @lot.received_qty,
+                           item_id: @lot.item_id, number: new_lot_number, purchase_order_id: @lot.purchase_order_id,
+                           status: @lot.status, received_date: @lot.received_date, accepted_qty: @lot.accepted_qty,
+                           rejected_qty: @lot.rejected_qty, date_cleaned: @lot.date_cleaned, ncmr: @lot.ncmr,
+                           full_po_qty: true, full_po_checkbox: {"full_po_qty"=>"1"} }
     end
 
     assert_redirected_to lot_path(assigns(:lot))
@@ -35,7 +43,7 @@ class LotsControllerTest < ActionController::TestCase
   end
 
   test "should update lot" do
-    patch :update, id: @lot, lot: { cleaned: @lot.cleaned, current_qty: @lot.current_qty, initial_qty: @lot.initial_qty, item_id: @lot.item_id, number: @lot.number }
+    patch :update, id: @lot, lot: { cleaned: @lot.cleaned, inventory_qty: @lot.inventory_qty, received_qty: @lot.received_qty, item_id: @lot.item_id, number: @lot.number, purchase_order_id: @lot.purchase_order_id }
     assert_redirected_to lot_path(assigns(:lot))
   end
 

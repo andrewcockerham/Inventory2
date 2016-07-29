@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.1'
+gem 'rails', '4.2.5'
+# gem 'rails', '4.0.1'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -30,6 +31,7 @@ gem "cocoon"
 gem 'simple_form'
 gem 'bootstrap-sass'
 gem 'devise'
+# gem 'capybara' ADD THIS FOR BETTER TESTING
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

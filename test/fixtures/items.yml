@@ -1,19 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+item_one:
   part_number: MyString
   name: MyString
   on_order_qty: 1
   in_inspection_qty: 1
   stock_qty: 1
   ncmr_qty: 1
-  name_and_number: MyString
+  name_and_number: MyString1
+  revision: MyString
+  number_and_rev: MyString1
+  number_rev_name: MyString1
+  current_rev: false
+  # parts: part_one
+  suppliers: supplier_one
 
-two:
+item_two:
   part_number: MyString
   name: MyString
   on_order_qty: 1
   in_inspection_qty: 1
   stock_qty: 1
   ncmr_qty: 1
-  name_and_number: MyString
+  name_and_number: MyString2
+  revision: MyString
+  number_and_rev: MyString2
+  number_rev_name: MyString2
+  current_rev: false
+  # part: spart_one
+  suppliers: supplier_one

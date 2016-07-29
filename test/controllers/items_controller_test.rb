@@ -1,8 +1,17 @@
 require 'test_helper'
 
 class ItemsControllerTest < ActionController::TestCase
+  # include from Devise
+  include Devise::Test::ControllerHelpers
+
   setup do
-    @item = items(:one)
+    @item = items(:item_one)
+
+    # Mimic the router behavior of setting the Devise scope through the env.
+    @request.env['devise.mapping'] = Devise.mappings[:employee]
+
+    # Use the sign_in helper to sign in a fixture `User` record.
+    sign_in employees(:one)
   end
 
   test "should get index" do
@@ -12,6 +21,12 @@ class ItemsControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
+    # # Mimic the router behavior of setting the Devise scope through the env.
+    # @request.env['devise.mapping'] = Devise.mappings[:employee]
+
+    # # Use the sign_in helper to sign in a fixture `User` record.
+    # sign_in employees(:alice)
+
     get :new
     assert_response :success
   end

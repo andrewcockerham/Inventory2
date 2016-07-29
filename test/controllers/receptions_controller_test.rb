@@ -1,8 +1,12 @@
 require 'test_helper'
 
 class ReceptionsControllerTest < ActionController::TestCase
+  # include from Devise
+  include Devise::Test::ControllerHelpers
+
   setup do
-    @reception = receptions(:one)
+    @reception = receptions(:reception_one)
+    # @po = purchase_orders(:purchase_order_one)
   end
 
   test "should get index" do
@@ -18,7 +22,7 @@ class ReceptionsControllerTest < ActionController::TestCase
 
   test "should create reception" do
     assert_difference('Reception.count') do
-      post :create, reception: { date: @reception.date, description: @reception.description, quantity: @reception.quantity }
+      post :create, reception: { date: @reception.date, description: @reception.description, quantity: @reception.quantity, purchase_order_id: @reception.purchase_order_id, item_id: @reception.item_id }
     end
 
     assert_redirected_to reception_path(assigns(:reception))

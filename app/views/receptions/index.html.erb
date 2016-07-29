@@ -5,9 +5,9 @@
     <tr>
       <th>Date</th>
       <th>Purchase Order</th>
+      <th>Remaining on PO</th>
       <th>Quantity</th>
       <th>Description</th>
-      <th>Remaining on PO</th>
     </tr>
   </thead>
 
@@ -15,13 +15,13 @@
     <% @receptions.each do |reception| %>
       <tr>
         <td><%= reception.date %></td>
-        <td><% if reception.purchase_order_id %>
-              <% purchase_order = PurchaseOrder.find(reception.purchase_order_id) %>
-              <%= purchase_order.purchase_order_number %>
-            <% end %></td>
+        <% if reception.purchase_order_id %>
+          <td><%= reception.purchase_order.purchase_order_number %></td>
+          <td><%= reception.purchase_order.quantities.first.amount_remaining %><td>
+              <!-- TODO FIX BUG - pick correct quantities, not just the first one -->
+        <% end %>
         <td><%= reception.quantity %></td>
         <td><%= reception.description %></td>
-        <td><%= PurchaseOrder.find(reception.purchase_order_id).quantities[0].amount_remaining %></td>
         <td><%= link_to 'Show', reception %></td>
         <td><%= link_to 'Edit', edit_reception_path(reception) %></td>
         <td><%= link_to 'Destroy', reception, method: :delete, data: { confirm: 'Are you sure?' } %></td>

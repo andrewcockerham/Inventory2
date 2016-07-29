@@ -1,7 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+supplier_one:
   name: MyString
+  approved: false
+  critical: false
+  items: item_one
+  # part: part_one
+    # item_id: <%= ActiveRecord::FixtureSet.identify(:item_one) %>
 
-two:
+
+supplier_two:
   name: MyString
+  approved: false
+  critical: false
+  items: item_one
+  # part: part_one
+
+# SOMEHOW THE ASSOCIATION/LINK B/W ITEMS, PARTS, AND SUPPLIERS IS BROKEN.
+# CAN I JUST REMOVE PARTS?
+

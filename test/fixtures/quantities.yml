@@ -2,6 +2,21 @@
 
 one:
   amount: 1
+  purchase_order: purchase_order_one
+  item: item_one
+  amount_remaining: 1
+  amount_received: 0
 
 two:
   amount: 1
+  purchase_order: purchase_order_one
+  item: item_two
+  amount_remaining: 1
+  amount_received: 0
+
+three:
+  amount: 1
+  purchase_order: purchase_order_two
+  item: item_two
+  amount_remaining: 1
+  amount_received: 0

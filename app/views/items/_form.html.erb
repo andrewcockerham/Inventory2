@@ -17,15 +17,15 @@
   <div class="field">
     <%= f.input :part_number %>
     <%= f.input :revision %>
-    <%= f.input :current_rev %>  
+    <%= f.input :current_rev %>
     <%= f.input :name, required: false%><br>
 <!--   , :input_html => { :class => "span6" }, :hint => "add your article titel here"  -->
     </div>
-  <%= f.simple_fields_for :parts do |part| %>
-    <%= render 'part_fields', :f => part %>
-  <% end %>
+  <!-- <%#= f.simple_fields_for :parts do |part| %> Parts deleted -->
+    <%#= render 'part_fields', :f => part %>
+  <%# end %>
   <div class="links">
-    <%= link_to_add_association 'Add additional supplier', f, :parts %><br><br>
+    <%#= link_to_add_association 'Add additional supplier', f, :parts %><br><br>
   </div>
 <!--   <div class="field">
     < f.input :on_order_qty %>
@@ -47,7 +47,7 @@
     < f.number_field :ncmr_qty %> -->
   <!-- </div> -->
   <!-- <div class="actions"> -->
-  
+
   <div class="form-actions">
     <%= f.submit %>
   </div>

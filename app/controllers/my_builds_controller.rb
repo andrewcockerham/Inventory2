@@ -71,6 +71,6 @@ class MyBuildsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def my_build_params
-      params.require(:my_build).permit(:qty, :scrap_qty, :description, :start_date, :ship_date, :complete, :current)
+      params.require(:my_build).permit(:start_qty, :scrap_qty, :description, :start_date, :ship_date, :complete, :current)
     end
 end

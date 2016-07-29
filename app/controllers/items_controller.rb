@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
 
   # show all purchase orders of an item
   def get_purchase_orders
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:id]) # TODO change .find to .where
     @purchase_orders = @item.purchase_orders
   end
 
@@ -28,7 +28,8 @@ class ItemsController < ApplicationController
   # GET /items/new
   def new
     @item = Item.new
-    @item.parts.build #### DONT FORGET THIS!!! BLOG/TUTORIAL ABOUT IT!!!
+    # @item.parts.build #### DONT FORGET THIS!!! BLOG/TUTORIAL ABOUT IT!!!
+    # above not needed, parts scaffold deleted
   end
 
   # GET /items/1/edit
@@ -48,7 +49,7 @@ class ItemsController < ApplicationController
     # Item.create_name_and_number
     @item.name_and_number = @item.part_number + " " + @item.name
     # Item.create_name_and_rev
-    @item.number_and_rev = @item.part_number + " Rev " + @item.revision
+    @item.number_and_rev = @item.part_number.to_s + " Rev " + @item.revision.to_s
     # Item.create_number_rev_name
     @item.number_rev_name = @item.number_and_rev + " " + @item.name
     @item.on_order_qty = 0
@@ -74,7 +75,7 @@ class ItemsController < ApplicationController
     @item.name_and_number = item_params[:part_number] + " " + item_params[:name]
     # @item.name_and_number = @item.part_number + " " + @item.name
     # Item.create_name_and_rev
-    @item.number_and_rev = item_params[:part_number] + " Rev " + item_params[:revision]
+    @item.number_and_rev = item_params[:part_number].to_s + " Rev " + item_params[:revision].to_s
     # Item.create_number_rev_name
     @item.number_rev_name = @item.number_and_rev + " " + item_params[:name]
     respond_to do |format|

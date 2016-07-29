@@ -1,11 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  date: 
+reception_one:
+  date: <%= Date.today %>
   quantity: 1
   description: MyString
+  purchase_order: purchase_order_one
+  item: item_one
+  # supplier: supplier_one
 
-two:
-  date: 
+reception_two:
+  date: <%= Date.today %>
   quantity: 1
   description: MyString
+  purchase_order: purchase_order_two
+  item: item_two
+  # supplier: supplier_two

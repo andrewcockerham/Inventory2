@@ -3,17 +3,16 @@ Inventory2::Application.routes.draw do
   resources :ncmrs
 
   devise_for :employees
+
   resources :my_builds
 
   resources :receptions
 
   root "purchase_orders#index"
 
-  resources :employees
+  # resources :employees ## THIS CAUSES ERROR B/C employees are devise
 
   resources :lots
-
-  resources :parts
 
   resources :orders
 

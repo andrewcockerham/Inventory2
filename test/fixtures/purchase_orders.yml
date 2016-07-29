@@ -1,11 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  date: 
+purchase_order_one:
+  date: <%= Date.today %>
   purchase_order_number: 1
   cost: 9.99
+  description: MyString
+  status: false
+  estimated_arrival: <%= Date.tomorrow %>
+  supplier: supplier_one
 
-two:
-  date: 
-  purchase_order_number: 1
+purchase_order_two:
+  date: <%= Date.today %>
+  purchase_order_number: 2
   cost: 9.99
+  description: MyString
+  status: false
+  estimated_arrival: <%= Date.tomorrow %>
+  supplier: supplier_one

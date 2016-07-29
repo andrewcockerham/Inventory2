@@ -23,8 +23,15 @@
     <% @lots.each do |lot| %>
       <tr>
         <td><%= link_to lot.number, lot_path(lot.id) %></td>
-        <td><%= link_to Item.find(lot.item_id).number_rev_name, item_path(Item.find(lot.item_id).id) %></td>
+        <td>
+          <% if @items.first %>
+            <%= link_to @items.where(id: lot.item_id).first.number_rev_name, item_path(@items.where(id: lot.item_id).first.id) %>
+            <%#= link_to Item.where(id: lot.item_id).first.number_rev_name, item_path(Item.where(id: lot.item_id).first.id) %>
+            <%#= link_to Item.find(lot.item_id).number_rev_name, item_path(Item.find(lot.item_id).id) %>
+          <% end %>
+        </td>
         <td><%= lot.item.suppliers.first.name %></td>
+        <!-- ADD THIS ABOVE LINE TO FIXTUERS (SO THAT ITEM HAS SUPPLIER) -->
         <td><%= lot.received_qty %></td>
         <td><%= lot.inventory_qty %></td>
         <td><% lot.status if lot.status == "Exhausted" %></td>

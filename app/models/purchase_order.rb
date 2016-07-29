@@ -14,10 +14,11 @@ class PurchaseOrder < ActiveRecord::Base
 	# has_many :suppliers, :through => :orders #, :source => :supplier_id
 
 	belongs_to :supplier
-	belongs_to :reception
+	has_many :receptions ## FIX THIS ASSOCIATION IN THE DATABASE???
+	# belongs_to :reception #should be 'has_many'?
 
 	accepts_nested_attributes_for :quantities, :reject_if => :all_blank, allow_destroy: true
 	accepts_nested_attributes_for :items
-	
+
 	accepts_nested_attributes_for :supplier
 end

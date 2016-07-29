@@ -26,11 +26,13 @@
         <td><%= item.stock_qty %></td>
         <td><%= item.on_order_qty %></td>
         <td><% if item.on_order_qty > 0 && Quantity.where(item_id: item.id).order('created_at desc').first %>
-              <%= link_to PurchaseOrder.find(Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id).purchase_order_number, purchase_order_path(PurchaseOrder.find(Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id))  %>
+              <%= link_to PurchaseOrder.where(id: Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id).first.purchase_order_number, purchase_order_path(PurchaseOrder.where(id: Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id))  %>
+              <!-- TODO: check above and below line - probably creates erros b/c may not find the correct PO -->
             <% end %></td>
         <td>
           <% if item.on_order_qty > 0 %>
-            <%= link_to(PurchaseOrder.find(Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id).estimated_arrival.to_formatted_s(:long), purchase_order_path(id: PurchaseOrder.find(Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id))) if Quantity.where(item_id: item.id).order('created_at desc').first %>
+          <!-- urchaseOrder.where(id: Quantity.where(item_id: item.id).first.purchase_order_id) -->
+            <%= link_to(PurchaseOrder.where(id: Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id).first.estimated_arrival.to_formatted_s(:long), purchase_order_path(id: PurchaseOrder.where(id: Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id))) if Quantity.where(item_id: item.id).order('created_at desc').first %>
           <% else %>
             N/A
           <% end %>

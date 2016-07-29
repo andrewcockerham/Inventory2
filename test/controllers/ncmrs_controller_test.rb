@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class NcmrsControllerTest < ActionController::TestCase
+  # include from Devise
+  include Devise::Test::ControllerHelpers
+
   setup do
     @ncmr = ncmrs(:one)
   end
@@ -18,7 +21,8 @@ class NcmrsControllerTest < ActionController::TestCase
 
   test "should create ncmr" do
     assert_difference('Ncmr.count') do
-      post :create, ncmr: { number: @ncmr.number }
+      new_ncmr_number = @ncmr.number += "1"
+      post :create, ncmr: { number: new_ncmr_number }
     end
 
     assert_redirected_to ncmr_path(assigns(:ncmr))

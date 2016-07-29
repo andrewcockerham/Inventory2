@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class OrdersControllerTest < ActionController::TestCase
+  # include from Devise
+  include Devise::Test::ControllerHelpers
+
   setup do
     @order = orders(:one)
   end

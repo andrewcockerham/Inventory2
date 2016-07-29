@@ -42,6 +42,7 @@ class LotsController < ApplicationController
   # GET /lots.json
   def index
     @lots = Lot.order("number desc")
+    @items = Item.all
   end
 
   # GET /lots/1
@@ -77,20 +78,29 @@ class LotsController < ApplicationController
     respond_to do |format|
       if @lot.save
         ### make sure to put error checks so you can't receive more than was ordered or get a negative number
-        @po = PurchaseOrder.find(@lot.purchase_order_id)
+        @po = @lot.purchase_order
         @lot.accepted_qty = 0
         @lot.received_qty = 0
         @lot.save
-        p params
-        if params["full_po_checkbox"]["full_po_qty"] == "1"
-          @lot.full_po_qty = true
-          @lot.received_qty = @po.quantities.find_by_item_id(@lot.item_id).amount
-          @lot.inventory_qty = @lot.received_qty
-          @lot.save
+        if params["lot"]
+          if params["lot"]["full_po_checkbox"]["full_po_qty"] == "1"
+            @lot.full_po_qty = true
+            @lot.received_qty = @po.quantities.find_by_item_id(@lot.item_id).amount
+            @lot.inventory_qty = @lot.received_qty
+            @lot.save
+          end
+        else
+          if params["full_po_checkbox"]["full_po_qty"] == "1"
+            @lot.full_po_qty = true
+            @lot.received_qty = @po.quantities.find_by_item_id(@lot.item_id).amount
+            @lot.inventory_qty = @lot.received_qty
+            @lot.save
+          end
         end
 
         ## if 'cleaned' checkbox checked, set cleaned=true and set date_cleaned=today
-        p params["lot"]["cleaned"]
+        ## TODO add ability to change/edit date that was cleaned,
+        ##      or input a different date for date cleaned
         if params["lot"]["cleaned"] == 1
           @lot.cleaned = true
           @lot.date_cleaned = Date.today
@@ -126,6 +136,7 @@ class LotsController < ApplicationController
   # PATCH/PUT /lots/1
   # PATCH/PUT /lots/1.json
   def update
+    @status_list = [['Inspection', 1], ['NCMR', 2], ['Inventory', 3], ['Exhausted', 4]]
 
     respond_to do |format|
       if @lot.update(lot_params)

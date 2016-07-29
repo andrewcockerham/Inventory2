@@ -4,7 +4,9 @@
 </p>
 <p>
   <strong>Item:</strong>
-  <%= Item.find(@lot.item_id).number_rev_name %>
+  <%= Item.where(id: @lot.item_id).first.number_rev_name %>
+  <!-- @items.where(id: lot.item_id).first.number_rev_name -->
+  <%#= Item.find(@lot.item_id).number_rev_name %>
 </p>
 <p>
   <strong>Supplier:</strong>

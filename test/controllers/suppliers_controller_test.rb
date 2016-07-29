@@ -1,11 +1,16 @@
 require 'test_helper'
 
 class SuppliersControllerTest < ActionController::TestCase
+  # include from Devise
+  include Devise::Test::ControllerHelpers
+
   setup do
-    @supplier = suppliers(:one)
+    @supplier = suppliers(:supplier_one)
+    # @employee = employees(:employee1)
   end
 
   test "should get index" do
+    # p @supplier
     get :index
     assert_response :success
     assert_not_nil assigns(:suppliers)

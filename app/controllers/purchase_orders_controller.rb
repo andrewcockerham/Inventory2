@@ -26,8 +26,9 @@ class PurchaseOrdersController < ApplicationController
   # GET /purchase_orders/1
   # GET /purchase_orders/1.json
   def show
-    @q = Quantity.all.find_all_by_purchase_order_id(@purchase_order.id)
-    # @q = Quantity.where(@purchase_order.id).all
+    # @q = Quantity.all.find_all_by_purchase_order_id(@purchase_order.id) DELETE
+    @q = Quantity.all.where(purchase_order_id: @purchase_order.id)
+    # @q = Quantity.where(@purchase_order.id).all DELETE
   end
 
   # GET /purchase_orders/new
@@ -70,17 +71,16 @@ class PurchaseOrdersController < ApplicationController
       if @purchase_order.save
         @purchase_order.quantities.each do |quantity|
           ## fix amount fields
-          quantity.amount_received = 0
-          quantity.amount_remaining = quantity.amount
-          quantity.save
+          quantity.update(amount_received: 0, amount_remaining: quantity.amount)
           ### end fix amount fields
-          @item = Item.find(quantity.item_id)
+          @item = Item.where(id: quantity.item_id).first
+
           if @item.on_order_qty.nil?
             @item.on_order_qty = 0
             @item.save
           end
-          @item.on_order_qty += quantity.amount
-          @item.save
+          new_on_order_qty = @item.on_order_qty += quantity.amount
+          @item.update(on_order_qty: new_on_order_qty)
         end
         format.html { redirect_to @purchase_order, notice: 'Purchase order was successfully created.' }
         format.json { render action: 'show', status: :created, location: @purchase_order }
@@ -139,8 +139,8 @@ class PurchaseOrdersController < ApplicationController
     def purchase_order_params
       params.require(:purchase_order).permit(:date, :purchase_order_number, :cost, :description, :estimated_arrival, :status,
                                              :supplier_id, :supplier => [:id, :supplier_id],
-                                             :suppliers => [:id, :supplier_id],
-                                             :supplier_ids => [:id, :supplier_id],
+                                             # :suppliers => [:id, :supplier_id], ## duplicate from below
+                                             # :supplier_ids => [:id, :supplier_id], ## duplicate from below
                                              :supplier_attributes => [:id, :supplier_id],
                                              :items => [:id, :item_id],
                                              :item_ids => [:id, :item_id], :quantity => [],

@@ -1,6 +1,9 @@
 require 'test_helper'
 
 class QuantitiesControllerTest < ActionController::TestCase
+  # include from Devise
+  include Devise::Test::ControllerHelpers
+
   setup do
     @quantity = quantities(:one)
   end

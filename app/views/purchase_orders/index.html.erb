@@ -35,7 +35,13 @@
           <%= purchase_order.quantities.find_by_item_id(item.id).amount_received %><br>
           <% end %></td>
         <td>
-          <%= link_to purchase_order.items[0].suppliers[0].name, supplier_path(:id => purchase_order.items[0].suppliers[0].id) %></td>  <!-- if purchase_order.items[0]  (:id => purchase_order.items[0].suppliers[0].id)-->
+          <% if purchase_order.items.first %>
+            <% if purchase_order.items.first.suppliers.first %>
+              <%# if purchase_order.items[0] %>
+              <%= link_to purchase_order.items[0].suppliers[0].name, supplier_path(:id => purchase_order.items[0].suppliers[0].id) %></td>  <!-- if purchase_order.items[0]  (:id => purchase_order.items[0].suppliers[0].id)-->
+            <% end %>
+          <% end %>
+          <%#= link_to purchase_order.items[0].suppliers[0].name, supplier_path(:id => purchase_order.items[0].suppliers[0].id) %><!--</td>-->  <!-- if purchase_order.items[0]  (:id => purchase_order.items[0].suppliers[0].id)-->
         <td><%= purchase_order.description %></td>
         <td><%= number_to_currency(purchase_order.cost) %></td>
         <td><%= purchase_order.estimated_arrival if !purchase_order.status %></td>

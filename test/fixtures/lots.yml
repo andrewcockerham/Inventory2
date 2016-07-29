@@ -2,14 +2,30 @@
 
 one:
   number: 1
-  initial_qty: 1
-  current_qty: 1
-  item_id: 1
+  received_qty: 1
   cleaned: false
+  inventory_qty: 1
+  status: MyString
+  received_date: <%= Date.today %>
+  full_po_qty: false
+  accepted_qty: 1
+  rejected_qty: 1
+  date_cleaned: <%= Date.today %>
+  ncmr: false
+  item: item_one
+  purchase_order: purchase_order_one
 
 two:
-  number: 1
-  initial_qty: 1
-  current_qty: 1
-  item_id: 1
+  number: 2
+  received_qty: 1
   cleaned: false
+  inventory_qty: 1
+  status: MyString
+  received_date: <%= Date.today %>
+  full_po_qty: false
+  accepted_qty: 1
+  rejected_qty: 1
+  date_cleaned: <%= Date.today %>
+  ncmr: false
+  item: item_one
+  purchase_order: purchase_order_one

@@ -13,6 +13,8 @@
 
   <div class="field">
     <%= f.input :date %>
+    <%#= f.input :datetime %>
+    <%#= f.date_select :date %>
   </div>
   <strong>Purchase Order:</strong>
    <%= f.collection_select :purchase_order_id, PurchaseOrder.where(status: false).order(:purchase_order_number), :id, :purchase_order_number, :prompt => 'Choose an existing PurchaseOrder'%><br>
