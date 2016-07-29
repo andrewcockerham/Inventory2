@@ -8,6 +8,13 @@ class LotsControllerTest < ActionController::TestCase
     @lot = lots(:one)
   end
 
+##### Custom Tests
+  test "when lot created, should add accepted_qty to inventory_qty" do
+    # @lot.inventory_qty
+  end
+
+##### End Custom Tests
+
   test "should get index" do
     get :index
     assert_response :success
