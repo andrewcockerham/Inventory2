@@ -20,6 +20,11 @@ class LotTest < ActiveSupport::TestCase
   														estimated_arrival: Date.tomorrow, supplier_id: Supplier.last.id, status: false)
   	p po
   	po.quantities.build
+  	po.quantities.each do |q|
+  		q.item_id = Item.last.id ## how to generalize this for a PO with multiple items
+  		# FIX: but in line above, item_id doesn't match po.quantities.item_id
+  		q.save
+  	end
   	# binding.pry
     lot = Lot.create(cleaned: false, inventory_qty: 0, received_qty: RECEIVED_QTY,
                            item_id: Item.first.id, number: 500, purchase_order_id: po.id,
@@ -40,3 +45,6 @@ class LotTest < ActiveSupport::TestCase
   #   assert_not post.valid?, 'The post should not be valid when missing body'
   # end
 end
+
+
+# FIX TEST - somehow lot.item_id is not the same item_id that is in the "quantity" of the po....

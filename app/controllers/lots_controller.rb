@@ -86,7 +86,8 @@ class LotsController < ApplicationController
           # if params["full_po_checkbox"]["full_po_qty"] == "1"
           # if params["lot"]["full_po_checkbox"]["full_po_qty"] == "1"
             # @lot.full_po_qty = true
-            @lot.received_qty = @po.quantities.find_by_item_id(@lot.item_id).amount
+            @lot.received_qty = @po.quantities.where(item_id: @lot.item_id).first.amount
+            # @lot.received_qty = @po.quantities.find_by_item_id(@lot.item_id).amount
             @lot.inventory_qty = @lot.received_qty
             @lot.save
           # end
@@ -121,7 +122,8 @@ class LotsController < ApplicationController
         @item.in_inspection_qty += @lot.received_qty
         @item.save
 
-        @quantity = @po.quantities.find_by_item_id(@lot.item_id)
+        @quantity = @po.quantities.where(item_id: @lot.item_id).first
+        # @quantity = @po.quantities.find_by_item_id(@lot.item_id)
         @quantity.amount_received += @lot.received_qty
         @quantity.amount_remaining -= @quantity.amount_received
         @quantity.save

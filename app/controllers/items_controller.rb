@@ -108,7 +108,8 @@ class ItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
       params.require(:item).permit(:part_number, :name, :on_order_qty, :revision, :current_rev,
-                                   :in_inspection_qty, :stock_qty, :ncmr_qty,
-                                   :name_and_number, :parts_attributes => [:id, :supplier_id, :_destroy])
+                                   :in_inspection_qty, :stock_qty, :ncmr_qty, :name_and_number,
+                                   :supplier_ids => [])
+                                   # :parts_attributes => [:id, :supplier_id, :_destroy])
     end
 end
