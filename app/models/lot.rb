@@ -3,7 +3,7 @@ class Lot < ActiveRecord::Base
 	# Validations
 	validates_presence_of :number, :item_id
 	validates_uniqueness_of :number
-	validates :inventory_qty, :numericality => { greater_than_or_equal_to: 0, message: "Inventory can't be negative" }# (message isnt working)
+	# validates :inventory_qty, :numericality => { greater_than_or_equal_to: 0, message: "Inventory can't be negative" }# (message isnt working)
 	#, :less_than_or_equal_to => :max_age }
 	# validates :height, :inclusion => { :in => 1..3000, :message => "The height must be between 1 and 3000" }
 

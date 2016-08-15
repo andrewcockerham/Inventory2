@@ -30,7 +30,7 @@
             <%#= link_to Item.find(lot.item_id).number_rev_name, item_path(Item.find(lot.item_id).id) %>
           <% end %>
         </td>
-        <td><%= lot.item.suppliers.first.name %></td>
+        <td><%= lot.item.suppliers.first.name if lot.item.suppliers.length > 0 %></td>
         <!-- ADD THIS ABOVE LINE TO FIXTUERS (SO THAT ITEM HAS SUPPLIER) -->
         <td><%= lot.received_qty %></td>
         <td><%= lot.inventory_qty %></td>

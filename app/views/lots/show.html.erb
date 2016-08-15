@@ -10,7 +10,7 @@
 </p>
 <p>
   <strong>Supplier:</strong>
-  <%= @lot.item.suppliers.first.name %>
+  <%= @lot.item.suppliers.first.name if @lot.item.suppliers.length > 0 %>
 </p>
 <p>
   <strong>Received Quantity:</strong>

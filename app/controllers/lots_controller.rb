@@ -77,26 +77,28 @@ class LotsController < ApplicationController
     @lot.inventory_qty = 0
     respond_to do |format|
       if @lot.save
-        ### make sure to put error checks so you can't receive more than was ordered or get a negative number
+        ### make sure to put error checks so you can't receive get a negative number
         @po = @lot.purchase_order
         @lot.accepted_qty = 0
         @lot.received_qty = 0
         @lot.save
-        if params["lot"]
-          if params["lot"]["full_po_checkbox"]["full_po_qty"] == "1"
-            @lot.full_po_qty = true
+        # if params["lot"]
+          # if params["full_po_checkbox"]["full_po_qty"] == "1"
+          # if params["lot"]["full_po_checkbox"]["full_po_qty"] == "1"
+            # @lot.full_po_qty = true
             @lot.received_qty = @po.quantities.find_by_item_id(@lot.item_id).amount
             @lot.inventory_qty = @lot.received_qty
             @lot.save
-          end
-        else
-          if params["full_po_checkbox"]["full_po_qty"] == "1"
-            @lot.full_po_qty = true
-            @lot.received_qty = @po.quantities.find_by_item_id(@lot.item_id).amount
-            @lot.inventory_qty = @lot.received_qty
-            @lot.save
-          end
-        end
+          # end
+        # else
+          # if params["full_po_checkbox"]["full_po_qty"] == "1"
+            # @lot.full_po_qty = true
+        #     @lot.received_qty = @po.quantities.find_by_item_id(@lot.item_id).amount
+        #     @lot.inventory_qty = @lot.received_qty
+        #     @lot.save
+        #   # end
+        # end
+
 
         ## if 'cleaned' checkbox checked, set cleaned=true and set date_cleaned=today
         ## TODO add ability to change/edit date that was cleaned,

@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+lot_one:
   number: 1
   received_qty: 1
   cleaned: false
@@ -15,7 +15,7 @@ one:
   item: item_one
   purchase_order: purchase_order_one
 
-two:
+lot_two:
   number: 2
   received_qty: 1
   cleaned: false

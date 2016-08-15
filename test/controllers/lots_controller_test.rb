@@ -5,7 +5,7 @@ class LotsControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
   setup do
-    @lot = lots(:one)
+    @lot = lots(:lot_one)
   end
 
 ##### Custom Tests
@@ -33,7 +33,12 @@ class LotsControllerTest < ActionController::TestCase
                            item_id: @lot.item_id, number: new_lot_number, purchase_order_id: @lot.purchase_order_id,
                            status: @lot.status, received_date: @lot.received_date, accepted_qty: @lot.accepted_qty,
                            rejected_qty: @lot.rejected_qty, date_cleaned: @lot.date_cleaned, ncmr: @lot.ncmr,
-                           full_po_qty: true, full_po_checkbox: {"full_po_qty"=>"1"} }
+                           full_po_qty: true }
+      # post :create, lot: { cleaned: @lot.cleaned, inventory_qty: @lot.inventory_qty, received_qty: @lot.received_qty,
+      #                      item_id: @lot.item_id, number: new_lot_number, purchase_order_id: @lot.purchase_order_id,
+      #                      status: @lot.status, received_date: @lot.received_date, accepted_qty: @lot.accepted_qty,
+      #                      rejected_qty: @lot.rejected_qty, date_cleaned: @lot.date_cleaned, ncmr: @lot.ncmr,
+      #                      full_po_qty: true, full_po_checkbox: {"full_po_qty"=>"1"} }
     end
 
     assert_redirected_to lot_path(assigns(:lot))

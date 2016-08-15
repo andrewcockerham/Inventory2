@@ -19,10 +19,11 @@
       <!-- < f.collection_select :item_id, Item.order(:name), :id, :number_rev_name, {}, { id: 'item_select_id', data: { remote: true }} %><br> -->
       <%= f.input :item_id, collection: PurchaseOrder.where(status: false).order(:purchase_order_number), as: :grouped_select, group_method: :items, group_label_method: :purchase_order_number, label_method: :name, value_method: :id, :prompt => 'Choose a pending Item', input_html: { id: 'item_select_id'} %>
       <!-- < if PO.amount_received = 0 %> -->
-        <%= f.label "","Full PO Qty Received?" %>
-        <%= check_box 'full_po_checkbox', :full_po_qty %>
+        <%#= f.label "","Full PO Qty Received?" %>
+        <%#= check_box 'full_po_checkbox', :full_po_qty %>
       <%#= f.input :full_po_qty, label: 'Full PO Qty Received?' %>
-      <!-- Add checkbox for receive full PO - then auto fill qty -->
+      <!-- TODO: Add checkbox for receive full PO - then auto fill qty -->
+      <!-- TODO: SHOW ORDERED QUANTITY -->
       <div class="received_qty">
         <%= f.input :received_qty, label: 'Received Qty' %>
       </div>
