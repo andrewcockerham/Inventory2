@@ -4,6 +4,12 @@ class LotsController < ApplicationController
   ## TO DO:
   ## make inventory qty just sum of all lots?? instead of value of item?
 
+  ## TODO
+  ## add column for whether an item requires cleaning to Item....
+  ## => then only show date.cleaned if item requires cleaning
+  ## => i.e. shafts don't require cleaning, so shouldn't show option to
+  ## => mark as cleaned or date_cleaned
+
   ### START CUSTOM METHODS
   # GET /inspection
   def inspection
@@ -55,6 +61,7 @@ class LotsController < ApplicationController
     @lot = Lot.new
     @lot.inventory_qty = 0
     @lot.accepted_qty = 0
+    @lot.received_qty = 0
     if Lot.first
       @lot.number = Lot.last.number + 1
     else
@@ -80,16 +87,15 @@ class LotsController < ApplicationController
         ### make sure to put error checks so you can't receive get a negative number
         @po = @lot.purchase_order
         @lot.accepted_qty = 0
-        @lot.received_qty = 0
+        # @lot.received_qty = 0
         @lot.save
         # if params["lot"]
           # if params["full_po_checkbox"]["full_po_qty"] == "1"
           # if params["lot"]["full_po_checkbox"]["full_po_qty"] == "1"
             # @lot.full_po_qty = true
-            @lot.received_qty = @po.quantities.where(item_id: @lot.item_id).first.amount
-            # @lot.received_qty = @po.quantities.find_by_item_id(@lot.item_id).amount
-            @lot.inventory_qty = @lot.received_qty
-            @lot.save
+            # THIS IS FOR 'FULL PO'...@lot.received_qty = @po.quantities.where(item_id: @lot.item_id).first.amount
+            # @lot.inventory_qty = @lot.received_qty
+            # @lot.save
           # end
         # else
           # if params["full_po_checkbox"]["full_po_qty"] == "1"
@@ -99,7 +105,6 @@ class LotsController < ApplicationController
         #     @lot.save
         #   # end
         # end
-
 
         ## if 'cleaned' checkbox checked, set cleaned=true and set date_cleaned=today
         ## TODO add ability to change/edit date that was cleaned,
@@ -117,13 +122,12 @@ class LotsController < ApplicationController
         p @po.status
         @po.save
 
-        @item = Item.find(@lot.item_id)
+        @item = Item.where(id: @lot.item_id).first # use .first because .where returns an array
         @item.on_order_qty -= @lot.received_qty if @lot.received_qty
         @item.in_inspection_qty += @lot.received_qty
         @item.save
 
         @quantity = @po.quantities.where(item_id: @lot.item_id).first
-        # @quantity = @po.quantities.find_by_item_id(@lot.item_id)
         @quantity.amount_received += @lot.received_qty
         @quantity.amount_remaining -= @quantity.amount_received
         @quantity.save

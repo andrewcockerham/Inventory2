@@ -65,7 +65,7 @@ class PurchaseOrdersController < ApplicationController
   def create
     @purchase_order = PurchaseOrder.new(purchase_order_params)
     # @purchase_order.quantities.build for each item in params?
-    @purchase_order.status = false
+    @purchase_order.status = false # can combine this with previous line?
 
     respond_to do |format|
       if @purchase_order.save
@@ -82,6 +82,7 @@ class PurchaseOrdersController < ApplicationController
           new_on_order_qty = @item.on_order_qty += quantity.amount
           @item.update(on_order_qty: new_on_order_qty)
         end
+
         format.html { redirect_to @purchase_order, notice: 'Purchase order was successfully created.' }
         format.json { render action: 'show', status: :created, location: @purchase_order }
       else

@@ -11,9 +11,9 @@
       <th>Name</th>
       <th>Inventory qty</th>
       <th>On order qty</th>
-      <th>Purchase Order</th>
-      <th>Expected Arrival Date</th>
       <th>In inspection qty</th>
+      <th>Pending Purchase Order</th>
+      <th>Expected Arrival Date</th>
     </tr>
   </thead>
 
@@ -25,6 +25,7 @@
         <td><%= item.name %></td>
         <td><%= item.stock_qty %></td>
         <td><%= item.on_order_qty %></td>
+        <td><%= item.in_inspection_qty %></td>
         <td><% if item.on_order_qty > 0 && Quantity.where(item_id: item.id).order('created_at desc').first %>
               <%= link_to PurchaseOrder.where(id: Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id).first.purchase_order_number, purchase_order_path(PurchaseOrder.where(id: Quantity.where(item_id: item.id).order('created_at desc').first.purchase_order_id))  %>
               <!-- TODO: check above and below line - probably creates erros b/c may not find the correct PO -->
@@ -37,7 +38,7 @@
             N/A
           <% end %>
         </td>
-        <td><%= item.in_inspection_qty %></td>
+
         <!-- <td>< item.name_and_number %></td> -->
         <!-- <td>< link_to 'Edit', edit_item_path(item) %></td> -->
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>

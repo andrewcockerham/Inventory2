@@ -66,4 +66,38 @@ class LotsControllerTest < ActionController::TestCase
 
     assert_redirected_to lots_path
   end
+
+  ### CUSTOM TESTS
+  test "when receive a lot, PO Quantity Received increases by lot.received_qty" do
+    ## TODO: make this code exact same as lot.create, so that we know its
+    ## => actually testing the create code
+    PURCHASE_ORDER_NUMBER = '20160814-01'
+    po = PurchaseOrder.create(cost: 100, date: Date.today, purchase_order_number: PURCHASE_ORDER_NUMBER, description: 'test',
+                              estimated_arrival: Date.tomorrow, supplier_id: Supplier.last.id, status: false)
+
+    po.quantities.build
+    po.quantities.each do |q|
+      q.item_id = Item.last.id ## how to generalize this for a PO with multiple items
+      q.update(amount_received: 0, amount_remaining: 0)
+      q.save
+    end
+    @q = po.quantities.first
+    lot = Lot.create(cleaned: false, inventory_qty: 0, received_qty: 10,
+                          item_id: Item.last.id, number: 500, purchase_order_id: po.id,
+                          status: 'inspection', received_date: Date.today, accepted_qty: nil,
+                          rejected_qty: 0, date_cleaned: Date.today, ncmr: false,
+                          full_po_qty: true)
+    @q.amount_received += lot.received_qty
+
+    assert_equal lot.received_qty, po.quantities.first.amount_received, 'Lot received_qty != po.amount_received'
+  end
+
+  test "when lot received, update lot.received_qty" do
+
+    assert_equal lot.received_qty, #quantities.amount_received??
+  end
+
+  test "when lot received, PO status should change from pending to received or partial received"
+
+  ### END CUSTOM TESTS
 end

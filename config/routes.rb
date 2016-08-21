@@ -8,7 +8,7 @@ Inventory2::Application.routes.draw do
 
   resources :receptions
 
-  root "purchase_orders#index"
+  root "items#index"
 
   # resources :employees ## THIS CAUSES ERROR B/C employees are devise
 

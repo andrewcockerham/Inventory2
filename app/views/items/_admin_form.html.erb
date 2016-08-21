@@ -18,7 +18,16 @@
       <%= f.input :part_number %>
       <%= f.input :revision %>
       <%= f.input :current_rev %>
+      <%= f.input :in_inspection_qty %>
+      <%= f.input :stock_qty %>
+      <%= f.input :ncmr_qty %>
+      <%= f.input :on_order_qty %>
       <%= f.input :name, required: false%><br>
+      <%= f.association :suppliers %>
+    </div>
+
+    <div class="links">
+      <%#= link_to_add_association 'Add additional supplier', f, :parts %><br><br>
     </div>
 
     <div class="form-actions">

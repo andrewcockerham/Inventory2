@@ -14,20 +14,24 @@
 			<%= simple_form_for(lot) do |f| %>
 				<tr>
 					<td><%= lot.number %></td>
-					<td><%= Item.find(lot.item_id).number_rev_name %></td>
+					<td><%= Item.where(id: lot.item_id).first.number_rev_name %></td>
 					<td><%= lot.received_qty %></td>
 					<td><%= lot.purchase_order.purchase_order_number if lot.purchase_order %></td>
-					<td><!-- < f.collection_select :status, @status_list.map { |value| [ value, value] }, @status_list.key, @status_list.value, prompt: 'Choose' %> -->
-					<!-- td>< lot.status %></td> -->  <!-- make this a dropdown menu -->
-					<%= f.select :status, @status_list.map { |value| [ value, value] } %></td>
+					<% if current_employee.is_admin %>
+						<td><!-- < f.collection_select :status, @status_list.map { |value| [ value, value] }, @status_list.key, @status_list.value, prompt: 'Choose' %> -->
+						<%= f.select :status, @status_list.map { |value| [ value, value] } %></td>
+					<% else %>
+						<%= lot.status %>
+					<% end %>
 					<td><%= link_to 'Inspection Results', release_path(lot.id), class: 'btn btn-primary' %></td>
 					<%= hidden_field_tag 'complete_inspection', 'true' %>
 					<!-- PurchaseOrder.order(:purchase_order_number), :id, :purchase_order_number, :prompt => 'Choose an existing PurchaseOrder'%><br> -->
-					<td><%= f.submit "Update", class: 'btn btn-primary btn-sm' %></td>
+					<% if current_employee.is_admin %>
+						<td><%= f.submit "Update (TODO)", class: 'btn btn-primary btn-sm' %></td>
+					<% end %>
 				</tr>
 			<% end %>
 		<% end %>
-
 
 	</tbody>
 </table>
