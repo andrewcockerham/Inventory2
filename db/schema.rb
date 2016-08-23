@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728024644) do
+ActiveRecord::Schema.define(version: 20160823125523) do
 
   create_table "build_lots", force: :cascade do |t|
     t.integer  "my_build_id"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20160728024644) do
     t.integer  "rejected_qty"
     t.date     "date_cleaned"
     t.boolean  "ncmr"
+    t.boolean  "exhausted"
   end
 
   add_index "lots", ["accepted_qty"], name: "index_lots_on_accepted_qty"

@@ -129,9 +129,10 @@ class LotsController < ApplicationController
 
         @quantity = @po.quantities.where(item_id: @lot.item_id).first
         @quantity.amount_received += @lot.received_qty
+        # @quantity.amount_remaining -= @lot.received_qty
         @quantity.amount_remaining -= @quantity.amount_received
         @quantity.save
-
+## TODO: FIX AMOUNT REMAINING...SOMEHOW IT WENT TO -100
         format.html { redirect_to @lot, notice: 'Lot was successfully created.' }
         format.json { render action: 'show', status: :created, location: @lot }
       else
