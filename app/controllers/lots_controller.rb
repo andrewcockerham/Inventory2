@@ -36,7 +36,8 @@ class LotsController < ApplicationController
   end
 
   def pull
-    @lot = Lot.find(params[:id])
+    @lot = Lot.where(id: params[:id]).first
+    # @lot = Lot.find(params[:id])
     @lot.build_lots.build
     @reverseBuildLots = @lot.build_lots.reverse
       ### want to use the new created .build one, not show the old one

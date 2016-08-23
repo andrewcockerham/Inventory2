@@ -20,7 +20,9 @@
       <!-- <li><%#= link_to 'Employees', employee_session_path %></li> -->
       <!-- <li><%#= link_to 'Receiving', coming_soon_path %></li>  receptions_path -->
       <li><%= link_to 'Inspection', inspection_path %></li>
-      <!-- <li><%#= link_to 'Builds', my_builds_path %></li> -->
+      <% if current_employee.is_admin %> <!-- TODO: or employee.department = mfg  -->
+        <li><%= link_to 'Builds', my_builds_path %></li>
+      <% end %>
       <!-- <li><%#= link_to 'Sonication', sonication_path %></li> -->
       <!-- <li><%#= link_to 'DMR', dmr_path %></li> -->
     </ul>

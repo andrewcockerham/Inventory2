@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823125523) do
+ActiveRecord::Schema.define(version: 20160823131106) do
 
   create_table "build_lots", force: :cascade do |t|
     t.integer  "my_build_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20160823125523) do
     t.string   "last_sign_in_ip",        limit: 255
     t.boolean  "is_admin"
     t.string   "email",                  limit: 255
+    t.string   "department"
   end
 
   add_index "employees", ["first_name"], name: "index_employees_on_first_name"

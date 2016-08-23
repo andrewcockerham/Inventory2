@@ -20,8 +20,8 @@
     <% end %>
   </div>
 
-<!-- TO DO: render other pulls not as fields -->
-<!-- TO TO: query database once in controller, not for each output below -->
+<!-- TODO: render other pulls not as fields -->
+<!-- TODO: query database once in controller, not for each output below -->
   <div class='well'>
     <strong>Issued To: <%= MyBuild.where(id: @lot.build_lots[0].my_build_id)[0].description %></strong>
     <strong>Pull Quantity: <%= MyBuild.where(id: @lot.build_lots[0].my_build_id)[0].pull_quantity %></strong>
