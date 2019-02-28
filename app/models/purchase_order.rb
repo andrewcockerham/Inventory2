@@ -3,6 +3,7 @@ class PurchaseOrder < ActiveRecord::Base
 	# Validations
 	validates_uniqueness_of :purchase_order_number, :message => "has already been taken. Please click 'back' then 'New Purchase Order' again"
 	validates_presence_of 	:purchase_order_number, :cost
+	# validates_presence_of 	:purchase_order_number, :supplier #or suppliers?
 
 	# Associations
 	has_many :quantities, dependent: :destroy
