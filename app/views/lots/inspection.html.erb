@@ -26,7 +26,7 @@
 					<td><%= link_to 'Inspection Results', release_path(lot.id), class: 'btn btn-primary' %></td>
 					<%= hidden_field_tag 'complete_inspection', 'true' %>
 					<!-- PurchaseOrder.order(:purchase_order_number), :id, :purchase_order_number, :prompt => 'Choose an existing PurchaseOrder'%><br> -->
-					<% if current_employee.is_admin %>
+					<% if current_employee && current_employee.is_admin %>
 						<td><%= f.submit "Update (TODO)", class: 'btn btn-primary btn-sm' %></td>
 					<% end %>
 				</tr>
