@@ -17,7 +17,7 @@
 					<td><%= Item.where(id: lot.item_id).first.number_rev_name %></td>
 					<td><%= lot.received_qty %></td>
 					<td><%= lot.purchase_order.purchase_order_number if lot.purchase_order %></td>
-					<% if current_employee.is_admin %>
+					<% if current_employee && current_employee.is_admin %>
 						<td><!-- < f.collection_select :status, @status_list.map { |value| [ value, value] }, @status_list.key, @status_list.value, prompt: 'Choose' %> -->
 						<%= f.select :status, @status_list.map { |value| [ value, value] } %></td>
 					<% else %>
