@@ -1,6 +1,6 @@
 <h1>Lot Number Log</h1>
 <%= link_to 'Receive New Lot', new_lot_path, class: 'btn btn-primary' %>
-<% if current_employee.is_admin %>
+<% if current_employee && current_employee.is_admin %>
   <%= link_to 'Show Exhausted Lots (TODO)', new_lot_path, class: 'btn btn-primary' %>
 <% end %>
 <br>
