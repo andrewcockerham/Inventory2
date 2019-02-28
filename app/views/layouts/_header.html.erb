@@ -20,8 +20,14 @@
       <!-- <li><%#= link_to 'Employees', employee_session_path %></li> -->
       <!-- <li><%#= link_to 'Receiving', coming_soon_path %></li>  receptions_path -->
       <li><%= link_to 'Inspection', inspection_path %></li>
-      <% if current_employee.is_admin %> <!-- TODO: or employee.department = mfg  -->
-        <li><%= link_to 'Builds', my_builds_path %></li>
+
+      <!-- Only admin or Manufacturing Manager can create a Build? -->
+      <!-- TODO: maybe change below - everyone can veiw builds, only those -->
+      <!-- with permission can create.... -->
+      <% if employee_signed_in? %>
+        <% if current_employee.is_admin || current_employee.department = "ManufacturingManager" %>
+          <li><%= link_to 'Builds', my_builds_path %></li>
+        <% end %>
       <% end %>
       <!-- <li><%#= link_to 'Sonication', sonication_path %></li> -->
       <!-- <li><%#= link_to 'DMR', dmr_path %></li> -->
