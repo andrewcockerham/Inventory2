@@ -31,7 +31,7 @@
           <%= purchase_order.quantities.find_by_item_id(item.id).amount %><br>
         <% end %></td>
         <td>
-          <% if purchase_order.supplier %>
+          <% if purchase_order.items[0].suppliers[0] %>
             <%= link_to purchase_order.items[0].suppliers[0].name, supplier_path(:id => purchase_order.items[0].suppliers[0].id) %></td>  <!-- if purchase_order.items[0]  (:id => purchase_order.items[0].suppliers[0].id)-->
           <% end %>
         <td><%= purchase_order.description %></td>
